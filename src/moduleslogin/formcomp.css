@@ -1,0 +1,56 @@
+.formbox{
+    width: 93vw;
+    height: 110vh;
+    margin-left: auto;
+    display: flex;
+    flex-direction: row;
+    margin-right: auto;
+}
+
+.logform{
+    width: 50%;
+}
+.logform form{
+    width: 95%;
+    border: 1px solid rgb(109, 101, 101);
+    height: 50%;
+    border-radius: 5px;
+    border-width: thin;
+}
+.logform form input{
+    width: 80%;
+    margin-left: 3.5%;
+    height: 13%;
+    margin-top: -15%;
+}
+.logform form label{
+    margin-left: 3.5%;
+    margin-top: 5%;
+    height: 15%;
+}
+.logform form button{
+    margin-left: 3.5%;
+    margin-top: 5%;
+    height: 13%;
+    width: 20%;
+}
+.regform{
+    width: 50%;
+}
+
+.regform form{
+    border: 1px solid rgb(109, 101, 101);
+    height: 90%;
+    border-radius: 5px;
+    border-width: thin;
+}
+.regform label{
+    margin-top: 5%;
+    margin-left: 3.5%;
+}
+.regform input{
+    margin-top: 5%;
+    margin-left: 3.5%;
+    height: 7%;
+    width: 70%;
+}

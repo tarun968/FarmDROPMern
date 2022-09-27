@@ -1,0 +1,15 @@
+.img-con{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: 5%;
+    justify-content: space-around;
+    margin-bottom: 8%;
+    width: 100%;
+    height: fit-content;
+}
+
+.img-con img{
+    height: 48vh;
+    width: 23%;
+}

@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
+.footer{
+    text-align: center;
+    background-color: rgb(39, 34, 34);
+    color: white;
+    margin-top: 3vh;
+    font-family:'Roboto', sans-serif;
+    
+}
+.footer form{
+padding-bottom: 5%;
+}
+.footer input{
+    height: 7.6vh;
+}
+.footer h6{
+    padding-bottom: 2%;
+}
+.footer form button{
+    width: 7vw;
+    height: 8vh;
+    color: white;
+    background-color: rgb(137, 235, 63);
+}
+.footer-nav{
+    padding-top: 3%;
+    padding-bottom: 3%;
+    height: 80%;
+}
+.footer-nav ul{
+    width: 39%;
+    margin-left: auto;
+    margin-right: auto;
+    /* background-color: rgb(221, 154, 154);; */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.footer-nav ul li{
+    list-style: none;
+}
