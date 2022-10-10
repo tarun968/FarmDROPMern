@@ -1,5 +1,6 @@
 import React from "react";
-import "./cards.css";
+// import "./cards.css";
+import 'bootstrap/dist/css/bootstrap.css';
 export default function Cards(
     {
     Title="FarmDrop featured on ABC7 News in Bangor",

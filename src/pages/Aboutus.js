@@ -1,16 +1,16 @@
 import React from "react";
-import Menu from "../menu"
+import Menu2 from "../menu2";
 import ImageSlider from "../modulesourloc/smallslider";
-import Alternate from "../modulesourloc/alterante";
 import Footer from "./footer";
+import Alternate2 from "../modulesourloc/alternate2";
 import ImageContainer from "./imgcont/imagecont";
 export default function Aboutus(){
     return (
         <div>
-        <Menu>
-        </Menu>
-        <Alternate>
-        </Alternate>
+        <Menu2>
+        </Menu2>
+        <Alternate2>
+        </Alternate2>
         <ImageSlider>
         </ImageSlider>
         <ImageContainer>

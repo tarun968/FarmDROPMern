@@ -4,8 +4,6 @@ import React from "react";
 import { useEffect } from 'react';
 import { useState } from 'react';
 
-import { ListGroupItem } from 'react-bootstrap';
-import { isLabelWithInternallyDisabledControl } from '@testing-library/user-event/dist/utils';
 export default function Sideslider() {
     const [bgcolor, setbgcolor] = useState("#9bbc1c")
     const [fcolor, setfcolor] = useState('white');

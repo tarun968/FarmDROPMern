@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@500&display=swap');
+.navbar{
+    box-shadow: 0 2px 14px 0 rgba(0,0,0,.2);    
+}
+.navbar>.container, .navbar>.container-fluid, .navbar>.container-lg, .navbar>.container-md, .navbar>.container-sm, .navbar>.container-xl, .navbar>.container-xxl {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.nav-item li a{
+    font-family: 'Noto Sans', sans-serif;
+    font-weight:bolder;
+    font-size: small;   
+}
+.nav-link {
+    color: black;
+    font-weight: 500;
+}
+
+.whiteClassName {
+    color: #90B501;
+    border-bottom: 3px solid #90B501;
+    border-spacing: 2px;
+}

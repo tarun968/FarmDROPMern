@@ -10,7 +10,6 @@
     margin-bottom: 5vh;
     grid-template-columns: 2rem 2fr 6fr 0rem;
 }
-
 .logo{
     display: grid;
     background-color: transparent;

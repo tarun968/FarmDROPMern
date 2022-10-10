@@ -1,0 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
+.m1
+{
+    background-image: url("../pages/img/fdc.jpg");
+    background-size: cover;
+    font-family: 'Roboto', sans-serif;;
+    font-weight: 400;
+}

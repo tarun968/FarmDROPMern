@@ -1,11 +1,11 @@
-import logo from './logo.svg';
-import './App.css';
-import Menu from './menu.js'
+// import './App.css';
+import Menu2 from './menu2.js'
 function App() {
   return (
-    <Menu>
-    </Menu>
+    <div>  
+    <Menu2>
+    </Menu2>
+    </div>
   );
 }
-
 export default App;

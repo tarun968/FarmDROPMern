@@ -9,25 +9,19 @@ export default function Whole(){
         <Cards>
         </Cards>
         <Cards>
-        </Cards>
-
-
-        
+        </Cards>        
         <Cards>
         </Cards>
         <Cards>
         </Cards>
         <Cards>
         </Cards>
-        
-
         <Cards>
         </Cards>
         <Cards>
         </Cards>
         <Cards>
-        </Cards>
-        
+        </Cards>     
         </div>
     )
 }
