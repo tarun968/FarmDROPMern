@@ -97,11 +97,83 @@ export default function Sideslider2() {
                     </div>
                 </div>
                 <div class="col-md-8"
-                    style={{ backgroundColor: '#D7DD3B', height: '80vh' }}
+                    style={{ backgroundColor: '#D7DD3B', height: '80vh', display: 'inline-block' }}
                 >
-                    <div class="h-100 p-5" style={{ height: '80vh' }}>
-                        {selecteddesc}
+                    <div class="px-2 row mx-auto align-items-start"
+                        style={{ width: '95%' }}>
+                        <div class="row mx-auto mt-3">
+                            <img
+                                src={require("../pages/img/small1.jpg")
+                                }
+                                style={{
+                                    width: 105
+                                }}
+                            />
+                            <img src={require("../pages/img/small2.jpg")
+                            }
+                                style={{
+                                    width: 105
+                                }}
+                            />
+                            <img src={require("../pages/img/small4.jpg")
+                            }
+                                style={{
+                                    width: 105
+                                }}
+                            />
+                            <img src={require("../pages/img/small3.jpg")
+                            }
+                                style={{
+                                    width: 105
+                                }} />
+                            <img src={require("../pages/img/small5.jpg")
+                            }
+                                style={{
+                                    width: 105
+                                }} />
+                            <img src={require("../pages/img/small6.jpg")
+                            }
+                                style={{
+                                    width: 105
+                                }} />
+                        </div>
+                        <div class="row mx-auto mt-5">
+                            <p>
+                                {selecteddesc}
+                            </p>
+                            <p>
+                                <span
+                                    style={{
+                                        fontWeight: 'bold'
+                                    }}>
+                                    Contact Information:
+                                </span>
+                                bluehill@farmdrop.us
+                            </p>
+                        </div>
+                        {/* <div class="d-grid mt-5 gap-2 d-sm-flex justify-content-sm-center"> */}
+                        <div className='row'>
+                            <div className='col-md-2'>
+                                <button type="button" class="btn btn-lg px-4 gap-3"
+                                    style={{ backgroundColor: 'rgb(144, 181, 1)',
+                                    color:'#D7DD3B',
+                                    border:'2px solid #D7DD3B' }}>
+                                    SHOP
+                                </button>
+                            </div>
+                            <div className='col'>
+                                <button type="button" class="btn btn-lg px-4 gap-3"
+                                    style={{ backgroundColor: 'rgb(144, 181, 1)',
+                                    color:'#D7DD3B',
+                                    border:'2px solid #D7DD3B' }}>
+                                    MARKET INFO
+                                </button>
+                            </div>
+                        </div>
                     </div>
+                    {/* <div class="h-100 p-5" style={{ height: '80vh' }}>
+                        {selecteddesc}
+                    </div> */}
                 </div>
             </div>
         </>

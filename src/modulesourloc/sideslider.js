@@ -90,11 +90,11 @@ export default function Sideslider() {
                 }
             </div>
             <div className="bigbox">
-                <p>
+                {/* <p>
                     <p>
                         {selecteddesc}
                     </p>
-                </p>
+                </p> */}
             </div>
         </div>
     )

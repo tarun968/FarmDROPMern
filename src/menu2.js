@@ -20,14 +20,18 @@ const Menu2 = () => {
 
             <nav className="navbar navbar-expand-lg static-top">
                 <div className="container">
-                    <img onClick={link} src={
+                    <img 
+                    onClick={link} 
+                    src={
                         require('./farmlaw.png')}
                         style={{ width: "20%", height: "40%", cursor: 'Pointer' }}
-                    ></img>
+                    >
+
+                    </img>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
-                    {(location.pathname == '/' || location.pathname == '/Contactus')
+                    {(location.pathname == '/Connect'  ||location.pathname == '/' || location.pathname == '/Contactus')
                         && (
                             <div className="collapse navbar-collapse" id="navbarSupportedContent">
 

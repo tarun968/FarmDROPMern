@@ -12,13 +12,14 @@ import Login from "./pages/Login";
 import Contactus from './pages/Contactus';
 import NewEvents from "./pages/Newsevents"
 import Ourlocation from "./pages/Ourlocation"
+import HomePage from './pages/Home';
 import Contact from './modulescontact/contactus';
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   <BrowserRouter>
     <Routes>
     <Route path = "/AboutUs" element = {<Aboutus/>} />
-    <Route path = "/" element = {<Menu2/>} />
+    <Route path = "/" element = {<HomePage/>} />
     <Route path ="/Contactus" element =  {<Contactus />}/>
     <Route path ="/Connect" element =  {<Connect />}/>
     <Route path = "/Cart" element = {<Cart/>} />

@@ -1,0 +1,13 @@
+.pp1{
+    background-image: url('../pages/img/header1.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.tintedimg{
+    background: 
+    /* top, transparent red, faked with gradient */ 
+    linear-gradient(
+      rgba(255, 0, 0, 0.45), 
+      rgba(255, 0, 0, 0.45)
+    ),
+}
