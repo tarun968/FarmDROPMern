@@ -1,5 +1,5 @@
 import React from "react";
-import Menu2 from "../menu2"
+import Menu2 from "../menu/menu2";
 import ImageSlider from "../modulesourloc/smallslider"
 import SimpleSlider from "../modulesourloc/smallslider2";
 import Sideslider2 from "../modulesourloc/sideslider2";

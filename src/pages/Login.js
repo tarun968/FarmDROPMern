@@ -1,7 +1,7 @@
 import React from "react";
 import Form from "../moduleslogin/formcomp";
 import Footer from "./footer";
-import Menu2 from "../menu2";
+import Menu2 from "../menu/menu2";
 export default function Login() {
     return (
         <div>

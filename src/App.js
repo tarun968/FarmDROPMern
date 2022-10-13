@@ -1,5 +1,5 @@
 // import './App.css';
-import Menu2 from './menu2.js'
+import Menu2 from "./menu/menu2";
 function App() {
   return (
     <div>  

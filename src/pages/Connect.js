@@ -1,5 +1,5 @@
 import React from "react";
-import Menu2 from "../menu2";
+import Menu2 from "../menu/menu2";
 import '../modulescontact/contactus.css'
 import Footer from "./footer";
 export default function Connect() {

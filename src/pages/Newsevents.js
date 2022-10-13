@@ -1,6 +1,5 @@
 import React from "react";
-import Menu2 from "../menu2"
-import Whole from "../modulesnande/whole"
+import Menu2 from "../menu/menu2";
 import Whole2 from "../modulesnande/whole2";
 import Footer from "./footer";
 export default function NewEvents() {

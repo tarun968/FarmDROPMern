@@ -1,18 +1,14 @@
 import React from "react";
-import Menu from "../menu"
+import Menu2 from "../menu/menu2";
 import Footer from "./footer";
-
+import Cardsproduct from "../modulescart/cardssection";
 export default function Cart() {
     return (
         <div>
-            <Menu>
+            <Menu2>
 
-            </Menu>
-            <div>
-                <h2>
-                    Cart
-                </h2>
-            </div>
+            </Menu2>
+            <Cardsproduct/>
             <Footer>
 
             </Footer>

@@ -1,5 +1,5 @@
 import React from 'react';
-import './menu2.css';
+import './menu2.css'
 import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 const Menu2 = () => {
@@ -23,7 +23,7 @@ const Menu2 = () => {
                     <img 
                     onClick={link} 
                     src={
-                        require('./farmlaw.png')}
+                        require('../farmlaw.png')}
                         style={{ width: "20%", height: "40%", cursor: 'Pointer' }}
                     >
 
@@ -31,7 +31,7 @@ const Menu2 = () => {
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
-                    {(location.pathname == '/Connect'  ||location.pathname == '/' || location.pathname == '/Contactus')
+                    {(location.pathname =="/Cart" || location.pathname == '/Connect'  ||location.pathname == '/' || location.pathname == '/Contactus')
                         && (
                             <div className="collapse navbar-collapse" id="navbarSupportedContent">
 

@@ -1,6 +1,6 @@
 import React from "react";
 import SuperBg from "../moduleshome/SuperBg";
-import Menu2 from "../menu2";
+import Menu2 from "../menu/menu2";
 import Footer from "./footer";
 import AltCont from "../moduleshome/AltCont";
 import ByrantImage from "../pages/img/Sell-On-FarmDrop.jpg"
