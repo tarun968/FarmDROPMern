@@ -1,7 +1,6 @@
 const express = require('express')
 require('dotenv').config()
 const bodyParser = require('body-parser')
-const jwt = require('jsonwebtoken')
 const cors = require('cors')
 const mongoose = require('mongoose')
 const { ObjectId } = mongoose.Schema
@@ -20,64 +19,11 @@ const { resolveSrv } = require('dns')
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.urlencoded({ extended: false }));
-
+var userModel = require('./USER/filemws')
+var newsModel = require('./NEWS/filedbs')
+var ProductModel = require('./PRODUCTS/productsDB')
 mongoose.connect('mongodb://localhost:27017/farmdrop', { useNewUrlParser: true })
-const Schema = mongoose.Schema;
-const User = new Schema({
-    Phone: {
-        type: String,
-        required: true
-    },
-    Email: {
-        type: String,
-        required: true
-    },
-    Password: {
-        type: String,
-        required: true
-    },
-    Role: {
-        type: Number,
-        required: true
-    },
-    FDMarket: {
-        type: String,
-        required: true
-    },
-    Reference: {
-        type: String,
-        required: true
-    },
-})
-
-const News = new Schema({
-    Headline: {
-        type: String,
-        required: true
-    },
-    Adder: {
-        type: String,
-        required: true,
-    },
-    News: {
-        type: String,
-        required: true
-    },
-    Date: {
-        type: Date,
-        required: true
-    },
-    Comments: [{
-        commentedby: String,
-        commentdesc: String,
-        Dateofcomment: Date,
-    }],
-    Likes: {
-        type: Number
-    }
-})
-const newsModel = mongoose.model("New", News)
-const userModel = mongoose.model("User", User)
+const Auths = require('./USER/fileroutes')
 var isSignedIn = jwtk(
     {
         secret: process.env.SECRET,
@@ -85,19 +31,20 @@ var isSignedIn = jwtk(
         algorithms: ['sha1', 'HS256', 'RS256']
     })
 
-app.get("/", async (req, res) => {
-    const abc = "abc";
-    res.json(abc)
-})
+
 const getUserByEmail = (req, res, next, id) => {
     console.log("lets get the user by email")
-    userModel.findOne({ EmaiL: id }).exec((err, user) => {
+    console.log('ID',id)
+    // console.log('reqqUEST',req)
+    userModel.findById(id).exec((err, user) => {
         if (err || !user) {
             console.log("error is here 1", err)
             return res.status(400).json({
                 error: "No user found in Db"
             })
         }
+        console.log('user',user)
+        console.log("hui hii")
         req.profile = user;
         next()
     })
@@ -106,6 +53,7 @@ const getNewsbyId = (req, res, next, id) => {
     console.log("lets get the new by id")
     newsModel.findOne({ _id: id }).exec((err, news) => {
         if (err || !news) {
+            console.log("9999")
             return res.status(400).json({
                 error: "No News with such ID found in Db"
             })
@@ -116,6 +64,44 @@ const getNewsbyId = (req, res, next, id) => {
 }
 app.param("adder", getUserByEmail)
 app.param("news", getNewsbyId);
+const isAuthenticated = (req,res,next) => {
+    console.log("req auth",req.auth)
+    console.log('req profile',req.profile)
+    try {
+        console.log(req.profile._id.toString())
+        console.log("req auth is", req.auth)
+        console.log("req profile is", req.profile)
+        let checker = req.profile && req.auth &&
+            req.profile._id.toString() === req.auth._id
+        if (!checker) {
+            return res.status(403).json({
+                error: "Acess is denied"
+            })
+        }
+        next()
+    } catch (er) {
+        console.log("error",er)
+    }
+}
+app.post("/add-product/:adder",isSignedIn,isAuthenticated,async(req,res) => {
+    console.log("/",req.profile)
+    try{
+        const product_new = await new ProductModel({
+            NameofProduct:req.body.ProductName, 
+            ProductID: req.body.ProductID,
+            Rating: 0,
+            AddedBy:req.profile.Email,
+            Date: new Date(),
+            Feedbacks: [],
+            Quantity:req.body.Quantity
+        })
+        await product_new.save();
+        return res.json({ product_new });
+    }catch(e){
+        console.log('error in product',e)
+        res.json({Message:'Not saved'})
+    }
+})
 app.post("/comment/:adder/:news", getUserByEmail, async (req, res) => {
     console.log("in the process of adding the comment", req.news_item)
     console.log("in the process of adding the comment", req.profile)
@@ -139,13 +125,13 @@ app.post("/comment/:adder/:news", getUserByEmail, async (req, res) => {
                 res.json({Message:"Updated successfully"})
             })
     } catch (e) {
-        console.log(e)
+        console.log("",e)
     }
 })
 
-
-app.post("/add-news/:adder", async (req, res) => {
-    console.log(req)
+app.post("/add-news/:adder", isSignedIn, isAuthenticated  ,async (req, res) => {
+    console.log('->',req.profile)
+    console.log('--->',req.body)
     try {
         const record_new = await new newsModel({
             Headline: req.body.Heading,
@@ -161,59 +147,7 @@ app.post("/add-news/:adder", async (req, res) => {
         console.log('error', err)
     }
 })
-app.post("/signup", async (req, res) => {
-    console.log(req.body);
-    try {
-        const record_new = await new userModel({
-            Email: req.body.email,
-            Password: req.body.password,
-            Role: req.body.role,
-            Reference: req.body.reference,
-            FDMarket: req.body.fdmarket,
-            Phone: req.body.phone,
-        })
-        await record_new.save();
-        const token = await createToken(req.body.email);
-        console.log(token);
-        res.cookie("user", token, {
-            httpOnly: true
-        })
-        return res.json({ record_new });
-    }
-    catch (err) {
-        console.log(err)
-        return res.json({ message: "Error in the SiginUp, Kindly Try again later" })
-    }
-})
-const createToken = async (id) => {
-    const x = jwt.sign({ id: id }, process.env.SECRET)
-    return x;
-}
-
-app.post("/signin", async (req, res) => {
-    try {
-        const record_to_find = await userModel.findOne({
-            Email: req.body.email, Password: req.body.password
-        })
-        console.log(record_to_find, req.body)
-        if (!record_to_find) {
-            res.json({ Message: "No User Was Found" });
-        }
-        const Token = jwt.sign(
-            {
-                password: req.body.password,
-                email: req.body.password, _id: record_to_find._id
-            }
-            , process.env.SECRET)
-        res.cookie("UserLoggedIN", Token);
-        const { _id, Email, Password, Role, FDMarket, Phone, Reference } = record_to_find
-        return res.json({ Token, user: { _id, Email, Password, Role, FDMarket, Phone, Reference } })
-
-    } catch (error) {
-        console.log(error);
-        res.json({ Message: "Error, Kindly Login Again" })
-    }
-})
+app.use("/",Auths)
 
 app.listen(5000, () => {
     console.log("On the port 5000")
