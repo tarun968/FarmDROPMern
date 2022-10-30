@@ -8,7 +8,7 @@ const cookieParser = require('cookie-parser')
 const app = express()
 var { expressjwt: jwtk } = require("express-jwt");
 var formidable = require("formidable");
-require('ejs')
+// require('ejs')
 app.use(cookieParser());
 app.use(express.static("public"));
 app.use(express.json());
@@ -16,7 +16,7 @@ app.use(cors())
 const fs = require('fs')
 const { json } = require('body-parser')
 const { resolveSrv } = require('dns')
-app.set("view engine", "ejs");
+// app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.urlencoded({ extended: false }));
 var userModel = require('./USER/filemws')
