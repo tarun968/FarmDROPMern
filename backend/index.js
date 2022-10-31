@@ -22,7 +22,8 @@ app.use(express.urlencoded({ extended: false }));
 var userModel = require('./USER/filemws')
 var newsModel = require('./NEWS/filedbs')
 var ProductModel = require('./PRODUCTS/productsDB')
-mongoose.connect('mongodb://localhost:27017/farmdrop', { useNewUrlParser: true })
+mongoose.connect('mongodb+srv://Tarun968:12345@farmdropcluster.fy5lrgc.mongodb.net/?retryWrites=true&w=majority'
+    , { useNewUrlParser: true })
 const Auths = require('./USER/fileroutes')
 var isSignedIn = jwtk(
     {
@@ -34,7 +35,7 @@ var isSignedIn = jwtk(
 
 const getUserByEmail = (req, res, next, id) => {
     console.log("lets get the user by email")
-    console.log('ID',id)
+    console.log('ID', id)
     // console.log('reqqUEST',req)
     userModel.findById(id).exec((err, user) => {
         if (err || !user) {
@@ -43,7 +44,7 @@ const getUserByEmail = (req, res, next, id) => {
                 error: "No user found in Db"
             })
         }
-        console.log('user',user)
+        console.log('user', user)
         console.log("hui hii")
         req.profile = user;
         next()
@@ -62,11 +63,23 @@ const getNewsbyId = (req, res, next, id) => {
         next()
     })
 }
+const getProductbyId = (req, res, next, id) => {
+    ProductModel.findOne({ _id: id }).exec((error, product) => {
+        if (error || !product) {
+            return res.status(400).json({
+                errormessage: 'no such product was found'
+            })
+        }
+        req.productfound = product;
+        next()
+    })
+}
 app.param("adder", getUserByEmail)
-app.param("news", getNewsbyId);
-const isAuthenticated = (req,res,next) => {
-    console.log("req auth",req.auth)
-    console.log('req profile',req.profile)
+app.param("news", getNewsbyId)
+app.param("product", getProductbyId)
+const isAuthenticated = (req, res, next) => {
+    console.log("req auth", req.auth)
+    console.log('req profile', req.profile)
     try {
         console.log(req.profile._id.toString())
         console.log("req auth is", req.auth)
@@ -80,26 +93,82 @@ const isAuthenticated = (req,res,next) => {
         }
         next()
     } catch (er) {
-        console.log("error",er)
+        console.log("error", er)
     }
 }
-app.post("/add-product/:adder",isSignedIn,isAuthenticated,async(req,res) => {
-    console.log("/",req.profile)
-    try{
+const isAdmin = (req, res, next) => {
+    try {
+        console.log("is admin profile", req.profile)
+        console.log("is admin profile", req.body)
+        if (req.profile.Role != 1) {
+            return res.json({ message: 'Acess denied as you are not an admin' })
+        }
+        else {
+            next()
+        }
+    } catch (e) {
+        console.log(e)
+    }
+}
+const Feedback = async (req, res, next) => {
+    ProductModel.findOneAndUpdate({ _id: req.productfound._id },
+        {
+            $push: {
+                Feedbacks: {
+                    GivenBy: req.profile.Email,
+                    FeedbackDesc: req.body.Feedback,
+                    DateofFB: new Date(),
+                    Stars: req.body.Star
+                }
+            }
+        }).exec((err, products) => {
+            if (err || !products) {
+                return res.status(400).json({
+                    message: 'Not done'
+                })
+            }
+            console.log("product after the feedback", products)
+            next();
+            // return res.status(200).json({
+            //     message:'Pushed successfully'
+            // })
+        })
+}
+app.post('/feedback/:product/:adder', isSignedIn, isAuthenticated, Feedback, async (req, res) => {
+    console.log('in the feedback',req.productfound)
+    var total_stars = 0;
+    req.productfound.Feedbacks.forEach(element => {
+        total_stars = total_stars + element.Stars
+    });
+    total_stars  = total_stars / req.productfound.Feedbacks.length
+    ProductModel.findOneAndUpdate({_id:req.productfound._id},{
+        $set:{Rating:total_stars}
+    }).exec((err,product)=>{
+        if(err || !product){
+            return res.json({message:'Not done successfully'})
+        }
+        return res.status(200).json({
+            message: 'Pushed successfully'
+        })
+    })
+})
+app.post("/add-product/:adder", isSignedIn, isAuthenticated, isAdmin, async (req, res) => {
+    console.log("/", req.profile)
+    try {
         const product_new = await new ProductModel({
-            NameofProduct:req.body.ProductName, 
+            NameofProduct: req.body.ProductName,
             ProductID: req.body.ProductID,
             Rating: 0,
-            AddedBy:req.profile.Email,
+            AddedBy: req.profile.Email,
             Date: new Date(),
             Feedbacks: [],
-            Quantity:req.body.Quantity
+            Quantity: req.body.Quantity
         })
         await product_new.save();
         return res.json({ product_new });
-    }catch(e){
-        console.log('error in product',e)
-        res.json({Message:'Not saved'})
+    } catch (e) {
+        console.log('error in product', e)
+        res.json({ Message: 'Not saved' })
     }
 })
 app.post("/comment/:adder/:news", getUserByEmail, async (req, res) => {
@@ -122,16 +191,16 @@ app.post("/comment/:adder/:news", getUserByEmail, async (req, res) => {
                         error: "Unable to save purchase list"
                     });
                 }
-                res.json({Message:"Updated successfully"})
+                res.json({ Message: "Updated successfully" })
             })
     } catch (e) {
-        console.log("",e)
+        console.log("", e)
     }
 })
 
-app.post("/add-news/:adder", isSignedIn, isAuthenticated  ,async (req, res) => {
-    console.log('->',req.profile)
-    console.log('--->',req.body)
+app.post("/add-news/:adder", isSignedIn, isAuthenticated, async (req, res) => {
+    console.log('->', req.profile)
+    console.log('--->', req.body)
     try {
         const record_new = await new newsModel({
             Headline: req.body.Heading,
@@ -147,7 +216,7 @@ app.post("/add-news/:adder", isSignedIn, isAuthenticated  ,async (req, res) => {
         console.log('error', err)
     }
 })
-app.use("/",Auths)
+app.use("/", Auths)
 
 app.listen(5000, () => {
     console.log("On the port 5000")

@@ -26,7 +26,11 @@ router.post('/signin', async (req, res) => {
         res.json({ Message: "Error, Kindly Login Again" })
     }
 })
-
+router.get('/',async(req,res)=>{
+    return res.json({
+        message:'sfof'
+    })
+})
 router.post('/signup', async (req, res) => {
     console.log(req.body);
     console.log("====================")
