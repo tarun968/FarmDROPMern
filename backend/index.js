@@ -22,8 +22,6 @@ app.use(express.urlencoded({ extended: false }));
 var userModel = require('./USER/filemws')
 var newsModel = require('./NEWS/filedbs')
 var ProductModel = require('./PRODUCTS/productsDB')
-mongoose.connect('mongodb+srv://Tarun968:12345@farmdropcluster.fy5lrgc.mongodb.net/?retryWrites=true&w=majority'
-    , { useNewUrlParser: true })
 const Auths = require('./USER/fileroutes')
 var isSignedIn = jwtk(
     {
