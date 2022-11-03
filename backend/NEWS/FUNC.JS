@@ -1,3 +1,17 @@
+exports.getNewsbyId = (req, res, next, id) => {
+    console.log("lets get the new by id")
+    newsModel.findOne({ _id: id }).exec((err, news) => {
+        if (err || !news) {
+            console.log("9999")
+            return res.status(400).json({
+                error: "No News with such ID found in Db"
+            })
+        }
+        req.news_item = news;
+        next()
+    })
+}
+
 exports.AddingNews = async (req, res) => {
     try {
         const record_new = await new newsModel({

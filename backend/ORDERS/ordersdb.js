@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
+var ObjectId = require('mongodb').ObjectID;
 const Schema = mongoose.Schema;
-const ProductSchema = new Scehma({
+const ProductSchema = new Schema({
     product:{
         type:ObjectId,
         ref:"Products"
