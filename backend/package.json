@@ -20,6 +20,7 @@
     "formidable": "^2.0.1",
     "fs": "0.0.1-security",
     "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.21",
     "module": "^1.2.5",
     "mongoose": "^6.6.2"
   },

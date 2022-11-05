@@ -33,6 +33,10 @@ const Products = new Schema({
             max:5
         }
     }],
+    ImageProduct:{
+        data:Buffer,
+        contentType:String
+    },
     Quantity:{
         type:Number,
         min:0,

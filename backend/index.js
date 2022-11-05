@@ -30,6 +30,7 @@ const {FindbyName,FindbyAdder,FindbyID,FindbyRating} = require('./PRODUCTS/AGG')
 const {getProductbyId} = require('./PRODUCTS/FUNC')
 const {getShopbyID} = require('./LOCATIONS/FUNC')
 const {userPurchaseList} = require('./ORDERS/FUNC')
+const {SubmitForm} = require('./PRODUCTS/FORM')
 
 app.param("adder", getUserByEmail)
 app.param("news", getNewsbyId)
@@ -41,9 +42,10 @@ app.put('/users/:adder', isSignedIn,isAuthenticated,updateUser)
 app.get('/Order/users/:adder', isSignedIn,isAuthenticated,userPurchaseList)
 
 app.post('/feedback/:product/:adder', isSignedIn,isAuthenticated,Feedback,RatingCalc)
-app.post("/add-product/:adder", isSignedIn, isAuthenticated, isAdmin, AddingProduct)
+app.post("/add-product/:adder", isSignedIn, isAuthenticated, isAdmin, SubmitForm)
 app.post("/comment/:adder/:news", isSignedIn, isAuthenticated,getUserByEmail, NewsComment)
 app.post("/add-news/:adder",isSignedIn,isAuthenticated,AddingNews)
+
 
 app.get("/productsbyName",FindbyName)
 app.get("/productsbyID",FindbyID)
