@@ -13,6 +13,12 @@ const ProductSchema = new Schema({
 const Orders = new Schema({
     products:[ProductSchema],
     transaction_id:{},
+    address:{type:String},
+    status:{
+        type:String,
+        default:"",
+        enum:["Cancelled","Delivered","Shipped","Processing","Recieved"]
+    },
     amount:{type:Number},
     address:String,
     user:{

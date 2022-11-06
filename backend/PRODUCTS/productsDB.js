@@ -13,7 +13,6 @@ const Products = new Schema({
     },
     Rating: {
         type: Number,
-        required: true
     },
     AddedBy:{
         type:String,

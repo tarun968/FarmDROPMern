@@ -24,6 +24,8 @@ exports.SubmitForm = (req, res) => {
                 })
             }
         }
+        product.AddedBy = req.profile.Email
+        product.Date = new Date()
         product.ImageProduct.data = fs.readFileSync(file.photo.filepath)
         product.ImageProduct.contentType = file.photo.type
         product.save((errors,prod) => {

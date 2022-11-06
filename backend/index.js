@@ -14,7 +14,8 @@ app.use(cors())
 const fs = require('fs')
 // const bodyParser = require('body-parser')
 const { resolveSrv } = require('dns')
-mongoose.connect('mongodb+srv://Tarun968:12345@farmdropcluster.fy5lrgc.mongodb.net/?retryWrites=true&w=majority',
+const conn = 'mongodb+srv://'+process.env.USNAME+':'+process.env.PASSWORD+'@farmdropcluster.fy5lrgc.mongodb.net/?retryWrites=true&w=majority'
+mongoose.connect(conn,
 { useNewUrlParser: true, useUnifiedTopology: true })
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.urlencoded({ extended: false }));
@@ -27,6 +28,7 @@ const {getUserByEmail,getAllUsers,updateUser} = require('./USER/FUNC')
 const {Feedback,RatingCalc,AddingProduct} = require('./PRODUCTS/FUNC')
 const {AddingNews,NewsComment,getNewsbyId} = require('./NEWS/FUNC')
 const {FindbyName,FindbyAdder,FindbyID,FindbyRating} = require('./PRODUCTS/AGG')
+const {createOrder,pushOrderInPurchaseList,updateStock} = require('./ORDERS/FUNC')
 const {getProductbyId} = require('./PRODUCTS/FUNC')
 const {getShopbyID} = require('./LOCATIONS/FUNC')
 const {userPurchaseList} = require('./ORDERS/FUNC')
@@ -45,7 +47,7 @@ app.post('/feedback/:product/:adder', isSignedIn,isAuthenticated,Feedback,Rating
 app.post("/add-product/:adder", isSignedIn, isAuthenticated, isAdmin, SubmitForm)
 app.post("/comment/:adder/:news", isSignedIn, isAuthenticated,getUserByEmail, NewsComment)
 app.post("/add-news/:adder",isSignedIn,isAuthenticated,AddingNews)
-
+app.post("/order-purchase/:adder",isSignedIn,isAuthenticated,pushOrderInPurchaseList,updateStock,createOrder)
 
 app.get("/productsbyName",FindbyName)
 app.get("/productsbyID",FindbyID)

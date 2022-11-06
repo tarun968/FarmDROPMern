@@ -17,7 +17,7 @@ exports.Feedback = async (req, res, next) => {
                     message: 'Not done'
                 })
             }
-            console.log("product after the feedback", products)
+            // console.log("product after the feedback", products)
         })
     next()
 }
@@ -45,6 +45,7 @@ exports.RatingCalc =  async (req, res) => {
         $set: { Rating: total_stars }
     }).exec((err, product) => {
         if (err || !product) {
+            console.log('erorr in the feddbacs',err)
             return res.json({ message: 'Not done successfully' })
         }
         return res.status(200).json({

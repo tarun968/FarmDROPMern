@@ -5,6 +5,7 @@ const User = new Schema({
         type: String,
         required: true
     },
+    Purchases:[],
     Email: {
         type: String,
         required: true,
