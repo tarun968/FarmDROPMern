@@ -4,6 +4,7 @@ const router = express.Router()
 var userModel = require('./filemws')
 router.post('/signin', async (req, res) => {
     try {
+        console.log(req.body)
         const record_to_find = await userModel.findOne({
             Email: req.body.email, Password: req.body.password
         })
@@ -31,12 +32,12 @@ router.post('/signup', async (req, res) => {
     console.log("====================")
     try {
         const record_new = await new userModel({
-            Email: req.body.email,
-            Password: req.body.password,
-            Role: req.body.role,
-            Reference: req.body.reference,
-            FDMarket: req.body.fdmarket,
-            Phone: req.body.phone,
+            Email: req.body.Email,
+            Password: req.body.Password,
+            Role: req.body.Role,
+            Reference: req.body.Reference,
+            FDMarket: req.body.FDMarket,
+            Phone: req.body.Phone,
         })
         await record_new.save();
         const token = await createToken(req.body.email);
@@ -48,7 +49,7 @@ router.post('/signup', async (req, res) => {
     }
     catch (err) {
         console.log(err)
-        return res.json({ message: "Error in the SiginUp, Kindly Try again later" })
+        return res.json({ error: "Error in the SiginUp, Kindly Try again later" })
     }
 })
 

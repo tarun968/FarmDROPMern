@@ -1,75 +1,188 @@
 import React from "react";
 import './formcomp.css';
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import { isAuthenticated, signup, signin, authenticate } from "../backendjoin/auth";
 export default function Form() {
+    const [ValuesLog, setLogValues] = useState({
+        email: "",
+        password: "",
+        ErrorL: "",
+        loading: false,
+        didRedirect: false
+    })
+    const { email, password, ErrorL, loading, didRedirect } = ValuesLog
+    const handleLogChange = name => event => {
+        setLogValues({ ...ValuesLog, error: false, [name]: event.target.value })
+    }
+    const { user } = isAuthenticated()
+    console.log(user)
+    const Login = (event) => {
+        event.preventDefault();
+        setLogValues({ ...ValuesLog, ErrorL: false, loading: true })
+        signin({ email, password })
+            .then(data => {
+                if (data.error) {
+                    setLogValues({ ...ValuesLog, ErrorL: data.error, loading: false })
+                }
+                else {
+                    authenticate(data, () => {
+                        setLogValues({
+                            ...ValuesLog,
+                            didRedirect: true
+                        })
+                    })
+                }
+            })
+            .catch(console.log("error in the signin"))
+    }
+
+
+    const [Values, setValues] = useState({
+        Email: "",
+        Password: "",
+        Role: 1,
+        Phone: "",
+        Reference: "",
+        "FDMarket": "",
+        error: "",
+        success: false
+    })
+    const { Email, Password, Role, Phone, Reference, FDMarket, error, success } = Values
+    const handleChange = name => event => {
+        setValues({ ...Values, error: false, [name]: event.target.value })
+    }
+    const SignUp = event => {
+        event.preventDefault();
+        setValues({ ...Values, error: false })
+        signup({ Email, Password, Role, Phone, Reference, FDMarket })
+            .then(data => {
+                console.log("data", data)
+                if (data.error) {
+                    setValues({
+                        Email: "",
+                        Password: "",
+                        Role: 1,
+                        Phone: "",
+                        Reference: "",
+                        "FDMarket": ""
+                        , error: data.error, success: false
+                    })
+                }
+                else {
+                    setValues({
+                        Email: "",
+                        Password: "",
+                        Role: 1,
+                        Phone: "",
+                        Reference: "",
+                        "FDMarket": "",
+                        error: "",
+                        success: true
+                    })
+                }
+            })
+            .catch(console.log('error in the signup'))
+    }
     return (
         <>
-            <div class="row align-items-md-stretch my-5">
-                <div class="col-md-6 rounded">
-                    <div class="h-100 p-5 text-dark bg-white rounded-3">
-                        <div class="row align-items-md-stretch">
+            <div className="row align-items-md-stretch my-5">
+                <div className="col-md-6 rounded">
+                    <div className="h-100 p-5 text-dark bg-white rounded-3">
+                        <div className="row align-items-md-stretch">
                             <form className="border">
-                                <div class="mb-3">
-                                    <label for="formGroupExampleInput" class="form-label" style={{ fontWeight: 'bold' }}>Username or email address</label>
-                                    <input type="text" class="form-control" id="formGroupExampleInput" />
+                                <div className="mb-3">
+                                    <label for="formGroupExampleInput4" className="form-label" style={{ fontWeight: 'bold' }}>Username or email address</label>
+                                    <input type="text"
+                                        className="form-control"
+                                        id="formGroupExampleInput"
+                                        value={email}
+                                        onChange={handleLogChange("email")} />
                                 </div>
-                                <div class="mb-3">
-                                    <label for="formGroupExampleInput2" class="form-label" style={{ fontWeight: 'bold' }}>Password</label>
-                                    <input type="password" class="form-control" id="formGroupExampleInput2" />
+                                <div className="mb-3">
+                                    <label for="formGroupExampleInput21" className="form-label" style={{ fontWeight: 'bold' }}>Password</label>
+                                    <input type="password"
+                                        className="form-control"
+                                        id="formGroupExampleInput2"
+                                        value={password}
+                                        onChange={handleLogChange("password")}
+                                    />
                                 </div>
-                                <div class="col-12">
-                                    <button type="submit" class="w-50 btn-primary mb-3" style={{ backgroundColor: "#0274be", fontWeight: 'bold' }}>Login</button>
+                                <div className="col-12">
+                                    <button
+                                        onClick={Login}
+                                        type="submit"
+                                        className="w-50 btn-primary mb-3"
+                                        style={{ backgroundColor: "#0274be", fontWeight: 'bold' }}
+                                    >Login</button>
                                 </div>
                             </form>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-md-6">
-                    <div class="h-100 p-5 bg-white rounded">
+                <div className="col-md-6">
+                    <div className="h-100 p-5 bg-white rounded">
                         <form className="border p-5">
-                            <label for="formGroupExampleInput3" class="form-label" style={{ fontWeight: 'bold' }}>Select Your FarmDrop Market</label>
-                            <select class="form-select" id="formGroupExampleInput3" aria-label="Default select example">
-                                <option selected>Select Your FarmDrop Market</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
-                            </select>
+                            <label for="formGroupExampleInput3" className="form-label" style={{ fontWeight: 'bold' }}>Select Your FarmDrop Market</label>
+                            <input className="form-control"
+                                id="formGroupExampleInput3"
+                                aria-label="Default select example"
+                                onChange={handleChange("FDMarket")}
+                                value={FDMarket}
+                            />
 
-                            <label for="formGroupExampleInput4" class="form-label" style={{ fontWeight: 'bold' }}>How did you hear about us</label>
-                            <select class="form-select" id="formGroupExampleInput4" aria-label="Default select example">
-                                <option selected>Select an option</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
-                            </select>
+                            <label for="formGroupExampleInput4" className="form-label" style={{ fontWeight: 'bold' }}>How did you hear about us</label>
+                            <input
+                                type='text'
+                                className="form-control"
+                                id="formGroupExampleInput4"
+                                aria-label="Default select example"
+                                onChange={handleChange("Reference")}
+                                value={Reference}
+                            />
 
 
-                            <div class="mb-3">
-                                <label for="formGroupExampleInput6" class="form-label" style={{ fontWeight: 'bold' }}>Phone Number</label>
-                                <input type="text" class="form-control" id="formGroupExampleInput6" />
+                            <div className="mb-3">
+                                <label for="formGroupExampleInput6" className="form-label" style={{ fontWeight: 'bold' }}>Phone Number</label>
+                                <input type="text"
+                                    className="form-control"
+                                    id="formGroupExampleInput6"
+                                    onChange={handleChange("Phone")}
+                                    value={Phone}
+                                />
                             </div>
 
 
-                            <div class="mb-3">
-                                <label for="formGroupExampleInput7" class="form-label" style={{ fontWeight: 'bold' }}>Email Address</label>
-                                <input type="text" class="form-control" id="formGroupExampleInput7" />
+                            <div className="mb-3">
+                                <label for="formGroupExampleInput7" className="form-label" style={{ fontWeight: 'bold' }}>Email Address</label>
+                                <input type="text"
+                                    className="form-control"
+                                    id="formGroupExampleInput7"
+                                    onChange={handleChange("Email")}
+                                    value={Email}
+                                />
                             </div>
 
-                            <div class="mb-3">
-                                <label for="formGroupExampleInput8" class="form-label" style={{ fontWeight: 'bold' }}>Password</label>
-                                <input type="password" class="form-control" id="formGroupExampleInput8" />
+                            <div className="mb-3">
+                                <label for="formGroupExampleInput8" className="form-label" style={{ fontWeight: 'bold' }}>Password</label>
+                                <input type="password"
+                                    className="form-control"
+                                    id="formGroupExampleInput8"
+                                    onChange={handleChange("Password")}
+                                    value={Password}
+                                />
                             </div>
 
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="flexRadioDisabled" id="flexRadioDisabled" />
-                                <label class="form-check-label" for="flexRadioDisabled">
+                            <div className="form-check">
+                                <input className="form-check-input" type="radio" name="flexRadioDisabled" id="flexRadioDisabled" />
+                                <label className="form-check-label" for="flexRadioDisabled">
                                     I am customer
                                 </label>
                             </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="flexRadioDisabled" id="flexRadioCheckedDisabled" />
-                                <label class="form-check-label" for="flexRadioCheckedDisabled">
+                            <div className="form-check">
+                                <input className="form-check-input" type="radio" name="flexRadioDisabled" id="flexRadioCheckedDisabled" />
+                                <label className="form-check-label" for="flexRadioCheckedDisabled">
                                     I am vendor
                                 </label>
                             </div>
@@ -79,7 +192,11 @@ export default function Form() {
                             <br>
                             </br>
                             <br></br>
-                            <button type="submit" class="w-50 btn-primary" style={{ backgroundColor: "#0274be", fontWeight: 'bold' }}>Register</button>
+                            <button
+                                onClick={SignUp}
+                                type="submit"
+                                className="w-50 btn-primary"
+                                style={{ backgroundColor: "#0274be", fontWeight: 'bold' }}>Register</button>
                         </form>
                     </div>
                 </div>
