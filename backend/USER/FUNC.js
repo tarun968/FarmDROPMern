@@ -1,4 +1,8 @@
 var userModel = require('./filemws')
+const jwt = require('jsonwebtoken')
+const {OAuth2Client, UserRefreshClient} = require('google-auth-library')
+const client = new OAuth2Client('991435748204-2nqakgjfp3ok2cn6spi86svqgpr9fr9h.apps.googleusercontent.com')
+
 exports.getUserByEmail = (req, res, next, id) => {
     console.log("lets get the user by email")
     console.log('ID', id)
@@ -42,4 +46,61 @@ exports.updateUser = (req,res) =>{
             console.log("json data",req.body)
         res.json(user)
         })
+}
+
+exports.googlesignin = (req,res) => {
+    const tokenId = req.body.tokenId;
+    client.verifyIdToken({idToken:tokenId,audience:'991435748204-2nqakgjfp3ok2cn6spi86svqgpr9fr9h.apps.googleusercontent.com'}
+    ).then(response =>{
+        console.log('response pa',response.payload)
+        const email_verfied =response.payload.email_verified
+        const email= response.payload.email
+        console.log('email',email_verfied)
+        if(email_verfied){
+            console.log('email is verified')
+            userModel.findOne({Email:email}).exec((err,user)=>{
+                if(err){
+                    console.log('email is verified and error came here')
+                    return res.status(400).json({error:'something went wrong'})
+                }
+                else{
+                    if(user){
+                        console.log('email is verified and user is found')
+                        const Token = jwt.sign(
+                            {
+                                email: response.payload.email, _id: user._id
+                            }
+                            , process.env.SECRET)
+                        res.cookie("UserLoggedIN", Token);
+                        const { _id, Email, Password, Role, FDMarket, Phone, Reference } = user
+                        return res.json({ Token, user: { _id, Email, Password, Role, FDMarket, Phone, Reference } })                
+                    }
+                    else{
+                        console.log('email is verified and user is not found')
+                        const record_new = new userModel({
+                            Email: email,
+                            Password: email+process.env.SECRET,
+                            Role: 1,
+                            Reference: "Google account",
+                            FDMarket: response.payload.locale,
+                            Phone: 'xxxxxxxxxx',
+                        })
+                        record_new.save();
+                        const token =  createToken(req.body.email);
+                        console.log(token);
+                        res.cookie("user", token, {
+                            httpOnly: true
+                        })
+                        return res.json({ record_new });
+                    }
+                }
+            })
+        }
+    })
+}
+
+
+const createToken = async (id) => {
+    const x = jwt.sign({ id: id }, process.env.SECRET)
+    return x;
 }

@@ -33,11 +33,13 @@ const {getProductbyId} = require('./PRODUCTS/FUNC')
 const {getShopbyID} = require('./LOCATIONS/FUNC')
 const {userPurchaseList} = require('./ORDERS/FUNC')
 const {SubmitForm} = require('./PRODUCTS/FORM')
-
+const {googlesignin} = require('./USER/FUNC')
 app.param("adder", getUserByEmail)
 app.param("news", getNewsbyId)
 app.param("product", getProductbyId)
 app.param("location",getShopbyID)
+
+app.post('/googlesignin',googlesignin)
 
 app.get('/users/:adder', isSignedIn,isAuthenticated,isAdmin,getAllUsers)
 app.put('/users/:adder', isSignedIn,isAuthenticated,updateUser)

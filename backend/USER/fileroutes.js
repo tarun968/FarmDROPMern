@@ -14,8 +14,7 @@ router.post('/signin', async (req, res) => {
         }
         const Token = jwt.sign(
             {
-                password: req.body.password,
-                email: req.body.password, _id: record_to_find._id
+                email: req.body.email, _id: record_to_find._id
             }
             , process.env.SECRET)
         res.cookie("UserLoggedIN", Token);
@@ -27,6 +26,7 @@ router.post('/signin', async (req, res) => {
         res.json({ Message: "Error, Kindly Login Again" })
     }
 })
+
 router.post('/signup', async (req, res) => {
     console.log(req.body);
     console.log("====================")
@@ -65,4 +65,5 @@ const createToken = async (id) => {
     const x = jwt.sign({ id: id }, process.env.SECRET)
     return x;
 }
+
 module.exports = router

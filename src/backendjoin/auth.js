@@ -18,7 +18,7 @@ export const signup = (user) => {
 
 export const signin = (user) => {
     console.log("",user)
-    return fetch(`${BACKEND}signin`, {
+    return fetch(`${BACKEND}/signin`, {
         method: 'POST',
         headers: {
             Accept: "application/json",
@@ -32,6 +32,7 @@ export const signin = (user) => {
 }
 
 export const authenticate = (data, next) => {
+    console.log('data',data)
     if (typeof window !== 'undefined') {
         localStorage.setItem("jwt", JSON.stringify(data))
         next();
