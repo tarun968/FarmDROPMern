@@ -53,23 +53,3 @@ exports.RatingCalc =  async (req, res) => {
         })
     })
 }
-
-exports.AddingProduct = async (req, res) => {
-    console.log("/", req.profile)
-    try {
-        const product_new = await new ProductModel({
-            NameofProduct: req.body.ProductName,
-            ProductID: req.body.ProductID,
-            Rating: 0,
-            AddedBy: req.profile.Email,
-            Date: new Date(),
-            Feedbacks: [],
-            Quantity: req.body.Quantity
-        })
-        await product_new.save();
-        return res.json({ product_new });
-    } catch (e) {
-        console.log('error in product', e)
-        res.json({ Message: 'Not saved' })
-    }
-}

@@ -10,7 +10,7 @@ router.post('/signin', async (req, res) => {
         })
         console.log(record_to_find, req.body)
         if (!record_to_find) {
-            res.json({ Message: "No User Was Found" });
+            res.json({ error: "No User Was Found" });
         }
         const Token = jwt.sign(
             {

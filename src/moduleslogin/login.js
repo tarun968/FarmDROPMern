@@ -2,6 +2,7 @@ import React from "react";
 import './formcomp.css';
 import { useState, useEffect } from "react";
 import { gapi } from "gapi-script";
+import { Navigate } from "react-router-dom";
 import GoogleLogin from "react-google-login";
 import { GoogleLogout } from "react-google-login";
 // 991435748204-2nqakgjfp3ok2cn6spi86svqgpr9fr9h.apps.googleusercontent.com
@@ -63,27 +64,16 @@ export default function Login() {
     }
     const didRedirectlogin = () => {
         if (didRedirect) {
+            console.log("user",user)
             if (user && user.Role === 1) {
                 return (
-                    <div className="row mt-4">
-                        <div className="col-md-6 offset-sm-3 text-left">
-                            <div className="alert alert-success"
-                            >
-                                Redirected to admin
-                            </div>
-                        </div>
-                    </div>
+                    <Navigate to = "admin/dashboard"/>
                 )
             }
             else {
-                <div className="row mt-4">
-                    <div className="col-md-6 offset-sm-3 text-left">
-                        <div className="alert alert-success"
-                        >
-                            Redirected to User panel
-                        </div>
-                    </div>
-                </div>
+                return (
+                    <Navigate to = "/"/>
+                )
             }
 
         }
