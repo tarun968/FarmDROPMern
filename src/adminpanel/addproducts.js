@@ -13,14 +13,15 @@ export default function ProductForm() {
         ImageProduct: "",
         Quantity: "",
         loading: false,
-        error: "",
+        error: false,
         formData: "",
         AddedBy: user.Email,
+        NewProduct:"",
         DateofAdd: new Date()
     })
 
     const { NameofProduct, ProductID, loading,
-        error, ImageProduct, Quantity, AddedBy, DateofAdd, formData } = ProductValues
+        error, ImageProduct, Quantity, AddedBy, NewProduct,DateofAdd, formData } = ProductValues
 
     const preload = () => {
         SetProductValues({ ...ProductValues, formData: new FormData() })
@@ -33,19 +34,22 @@ export default function ProductForm() {
         SetProductValues({ ...ProductValues, error: "", loading: true })
         AddProducts(user._id, Token, formData).then(data => {
             if (data.error) {
-                SetProductValues({ ...ProductValues, error: data.error });
+                SetProductValues({ ...ProductValues, error: false });
             } else {
                 SetProductValues({
                     ...ProductValues,
                     NameofProduct: "",
                     ProductID: "",
                     ImageProduct: "",
+                    error:true,
                     Quantity: "",
                     loading: false,
+                    NewProduct:data.NameofProduct
                 });
             }
         });
     }
+    console.log(" ",error)
     const handleChange = name => event => {
         // console.log(event.target.name)
         // console.log(event.target.value)
@@ -54,6 +58,25 @@ export default function ProductForm() {
         formData.set(name, value);
         SetProductValues({ ...ProductValues, [name]: value });
     }
+
+    const SuccessMessage = () => {
+        return (
+            <div className="alert alert-success mt-3"
+            style={{display:NewProduct ? "":"none"}}>
+            <h4>{NewProduct} Created SucessFully </h4>
+            </div>
+        )
+    }
+
+    const ErrorMessage = () => {
+        return (
+            <div className="alert alert-danger mt-3"
+            style={{display:error ? "":"none"}}>
+            <h4>Could not create the Product {error}</h4>
+            </div>
+        )
+    }
+
     return (
         <>
             <Menu2 />
@@ -119,7 +142,6 @@ export default function ProductForm() {
 
 
                         <div className="mb-3">
-                            <label for="formGroupExampleInput6" className="form-label" style={{ fontWeight: 'bold' }}>Date</label>
                             <input 
                             type="date"
                                 className="form-control"
@@ -127,6 +149,7 @@ export default function ProductForm() {
                                 // onChange={handleChange("DateofAdd")}
                                 // name="DateofAdd"
                                 value={new Date().toLocaleDateString()}
+                                hidden
                             />
                         </div>
                         {/* {successSignup} */}
@@ -137,9 +160,9 @@ export default function ProductForm() {
                             className="w-100 btn-primary"
                             style={{ backgroundColor: "#0274be", fontWeight: 'bold' }}>Add Product</button>
                     </form>
-                    {/* {successSignup()}
-                    {errorSignup()} */}
-                </div>
+                    {SuccessMessage()}
+                    {ErrorMessage()}
+                    </div>
             </div>
         </>
     )

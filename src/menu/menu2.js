@@ -34,7 +34,9 @@ const Menu2 = () => {
                     </button>
             {(location.pathname == "/Cart" || location.pathname == '/Connect' 
             || location.pathname == '/' || location.pathname == '/Contactus' 
-            || location.pathname == '/Login/admin/dashboard' || location.pathname=="/Adding-Products")
+            || location.pathname == '/Login/admin/dashboard' || location.pathname=="/Adding-Products"
+            ||location.pathname == '/Updating-Products'
+            )
                         && (
                             <div className="collapse navbar-collapse" id="navbarSupportedContent">
 

@@ -33,6 +33,13 @@ exports.getProductbyId = (req, res, next, id) => {
         next()
     })
 }
+exports.getPhoto = async(req,res) =>{
+    if(req.productfound.ImageProduct.data){
+        res.set('Content-Type',req.productfound.ImageProduct.contentType)
+        return res.send(req.productfound.ImageProduct.data)
+    }   
+    next();
+}
 
 exports.RatingCalc =  async (req, res) => {
     console.log('in the feedback', req.productfound)
@@ -51,5 +58,17 @@ exports.RatingCalc =  async (req, res) => {
         return res.status(200).json({
             message: 'Pushed successfully'
         })
+    })
+}
+exports.productDelete = (req,res) => {
+    const producttodelete = req.productfound;
+    producttodelete.remove((err,deletedProduct) => {
+        if(err){
+            return res.status(400).json({
+                error:'Failed to delete the product'
+            })
+        }
+        return res.json({Message:"Deletion Successfull",
+    deletedProduct})
     })
 }

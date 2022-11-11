@@ -10,6 +10,7 @@ import ProductForm from './adminpanel/addproducts';
 import Connect from './pages/Connect';
 import { isAuthenticated } from './backendjoin/auth';
 import Login from "./pages/Login";
+import DeleteProduct from './adminpanel/deleteproducts';
 import Contactus from './pages/Contactus';
 import NewEvents from "./pages/Newsevents"
 import Error from './error/error';
@@ -30,6 +31,7 @@ root.render(
       <Route path="/Contactus" element={<Contactus />} />
       <Route path="/Connect" element={<Connect />} />
       <Route path="/Cart" element={<Cart />} />
+      <Route path="/Updating-Products" element={<DeleteProduct />} />
       <Route path="/Adding-Products" element={<ProductForm/>} />
       <Route path ="Login/admin/dashboard" element = {<AdminPanel />} />
       <Route element = {<PrivateRoute />}>

@@ -34,9 +34,9 @@ const Auths = require('./USER/fileroutes')
 
 const { isAuthenticated, isAdmin, isSignedIn } = require('./CONTROLLERS/AUTH')
 const { getUserByEmail, getAllUsers, updateUser } = require('./USER/FUNC')
-const { Feedback, RatingCalc, AddingProduct } = require('./PRODUCTS/FUNC')
+const { Feedback, RatingCalc, getPhoto,productDelete } = require('./PRODUCTS/FUNC')
 const { AddingNews, NewsComment, getNewsbyId } = require('./NEWS/FUNC')
-const { FindbyName, FindbyAdder, FindbyID, FindbyRating } = require('./PRODUCTS/AGG')
+const { FindbyName, FindbyAdder, FindbyID, FindbyRating, FindAll } = require('./PRODUCTS/AGG')
 const { createOrder, pushOrderInPurchaseList, updateStock } = require('./ORDERS/FUNC')
 const { getProductbyId } = require('./PRODUCTS/FUNC')
 const { getShopbyID } = require('./LOCATIONS/FUNC')
@@ -107,6 +107,8 @@ app.get('/Order/users/:adder', isSignedIn, isAuthenticated, userPurchaseList)
 app.post('/feedback/:product/:adder', isSignedIn, isAuthenticated, Feedback, RatingCalc)
 
 app.post("/add-product/:adder", isSignedIn, isAuthenticated, isAdmin, SubmitForm)
+app.get("/All-Products/:adder",isSignedIn,isAuthenticated,isAdmin,FindAll)
+app.get("/Photo/:product",getPhoto)
 
 app.post("/comment/:adder/:news", isSignedIn, isAuthenticated, getUserByEmail, NewsComment)
 app.post("/add-news/:adder", isSignedIn, isAuthenticated, AddingNews)
@@ -114,6 +116,14 @@ app.post("/order-purchase/:adder", isSignedIn, isAuthenticated, pushOrderInPurch
 
 app.get("/productsbyName", FindbyName)
 app.get("/productsbyID", FindbyID)
+
+app.delete("/product/:product/:adder",
+    isSignedIn,
+    isAuthenticated,
+    isAdmin,
+    productDelete,
+)
+
 app.get("/productsbyAdder", FindbyAdder)
 app.get("/productsbyRating", FindbyRating)
 

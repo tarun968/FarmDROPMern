@@ -1,5 +1,13 @@
 const ProductModel = require('./productsDB')
 
+exports.FindAll = async (req,res) =>{
+    const data = await ProductModel.find({})
+    // console.log('data',data)
+    if(!data){
+        return res.json({error:'Error in the database'})
+    }
+    return res.json({message:data})
+}
 exports.FindbyName = async (req,res) =>{
     const query = req.query.Name
     // console.log('Query',query)
