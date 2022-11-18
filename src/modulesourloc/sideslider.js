@@ -8,47 +8,6 @@ export default function Sideslider() {
     const [bgcolor, setbgcolor] = useState("#9bbc1c")
     const [fcolor, setfcolor] = useState('white');
     const [locations, setlocations] = useState([]);
-    const data = [
-        {
-            id: 1,
-            title: "Blue Hill",
-            Description: " Blue hill Contrary to popular belief, Lorem Ipsum is not" +
-                "simply random text. It has roots in a piece of classical Latin" +
-                " literature from 45 BC, making it over 2000 years old. Richard McClintock,"
-        },
-        {
-            id: 2,
-            title: "Cape Elizabeth",
-            Description: " cape elizabeth Contrary to popular belief, Lorem Ipsum is not" +
-                "simply random text. It has roots in a piece of classical Latin" +
-                " literature from 45 BC, making it over 2000 years old. Richard McClintock,"
-
-        },
-        {
-            id: 3,
-            title: "Deer Isle",
-            Description: "Deer isle Contrary to popular belief, Lorem Ipsum is not" +
-                "simply random text. It has roots in a piece of classical Latin" +
-                " literature from 45 BC, making it over 2000 years old. Richard McClintock,"
-
-        },
-        {
-            id: 4,
-            title: "Howland",
-            Description: "Howland Contrary to popular belief, Lorem Ipsum is not" +
-                "simply random text. It has roots in a piece of classical Latin" +
-                " literature from 45 BC, making it over 2000 years old. Richard McClintock,"
-
-        },
-        {
-            id: 5,
-            title: "Lisbon",
-            Description: "Lisbon Contrary to popular belief, Lorem Ipsum is not" +
-                "simply random text. It has roots in a piece of classical Latin" +
-                " literature from 45 BC, making it over 2000 years old. Richard McClintock,"
-
-        }
-    ]
     useEffect(() => {
         setlocations(data)
     }, []);

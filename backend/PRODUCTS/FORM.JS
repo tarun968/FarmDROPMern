@@ -8,7 +8,6 @@ const fs = require('fs')
 // 
 exports.SubmitForm = (req, res) => {
     console.log("form ")
-
     let form = new formidable.IncomingForm()
     form.keepExtensions = true
     console.log("form ")

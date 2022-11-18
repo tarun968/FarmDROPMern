@@ -1,6 +1,7 @@
 import React from "react";
 import { DeleteAProduct } from "./apiproducts";
 import Menu2 from "../menu/menu2";
+import { Link } from "react-router-dom";
 import { isAuthenticated } from "../backendjoin/auth";
 import { AllProducts } from "./apiproducts";
 import { useState, useEffect } from "react";
@@ -82,10 +83,13 @@ const DeleteProduct = () => {
                                             className="fw-bold card-text">
                                             {product.ProductID}
                                         </p>
-                                        <button className="btn w-100" style={{
+                                        <Link className="btn w-100" style={{
                                             background: "linear-gradient(#90B500, #7c9b00)",
                                             color: 'white'
-                                        }}>Update</button>
+                                        }}
+                                        to={`${product._id}`}
+                                        >
+                                        Update</Link>
                                         <button className="btn mt-1 w-100" style={{
                                             background: "red",
                                             color: 'white'

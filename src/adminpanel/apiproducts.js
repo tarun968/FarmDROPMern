@@ -34,9 +34,24 @@ export const AllProducts = async (Userid, Token) => {
     }
     ).catch(err => console.log("err", err))
 }
+export const UpdateProduct = async (product,Userid, Token, formData) => {
+    console.log("",product,Userid, Token, formData)
+    return fetch(`http://localhost:5000/update-product/${product}/item/${Userid}`, {
+        method: 'POST',
+        headers: {
+            Accept: "application/json",
+            Authorization: `Bearer ${Token}`
 
-export const DeleteAProduct = async(product,adder,token) => {
-    console.log(product,adder,token)
+        },
+        body:(formData)
+    }).then(response => {
+        return response.json()
+    }
+    ).catch(err => console.log("err", err))
+
+}
+export const DeleteAProduct = async (product, adder, token) => {
+    console.log(product, adder, token)
     return fetch(`http://localhost:5000/product/${product}/${adder}`, {
         method: 'DELETE',
         headers: {

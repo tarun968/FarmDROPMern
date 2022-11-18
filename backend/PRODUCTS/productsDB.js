@@ -32,6 +32,10 @@ const Products = new Schema({
             max:5
         }
     }],
+    Price:{
+        required:true,
+        type:Number
+    },
     ImageProduct:{
         data:Buffer,
         contentType:String

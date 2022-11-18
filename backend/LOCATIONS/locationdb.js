@@ -21,14 +21,6 @@ const Locations = new Schema({
         type:String,
         required:true
     },
-    // ProductShop:[
-    //     {
-    //         type:ObjectId,
-    //         ref:'Products',
-
-    //     }    
-    // ]
-    // ,
     ShopID: {
         type: String,
         unique:true,
@@ -36,7 +28,7 @@ const Locations = new Schema({
     },
     Rating: {
         type: Number,
-        required: true
+        // required: true
     },
     AddedBy:{
         type:String,
@@ -56,9 +48,21 @@ const Locations = new Schema({
             max:5
         }
     }],
+    EmailShop:{
+        type:String,
+        unique:true,
+        required:true
+    }
+    ,
     Address:{
         type:String,
         required:true
-    }
+    },
+    ImagesShop:[
+        {
+            data:Buffer,
+        contentType:String,
+        }
+    ]
 })
 module.exports = mongoose.model("Locations", Locations)
