@@ -8,7 +8,7 @@ export default function SignIn(){
     const [Values, setValues] = useState({
         Email: "",
         Password: "",
-        Role: 1,
+        Role: 2,
         Phone: "",
         Reference: "",
         "FDMarket": "",
@@ -53,7 +53,7 @@ export default function SignIn(){
                     setValues({
                         Email: "",
                         Password: "",
-                        Role: 1,
+                        Role: 2,
                         Phone: "",
                         Reference: "",
                         "FDMarket": ""
@@ -64,7 +64,7 @@ export default function SignIn(){
                     setValues({
                         Email: "",
                         Password: "",
-                        Role: 1,
+                        Role: 2,
                         Phone: "",
                         Reference: "",
                         "FDMarket": "",

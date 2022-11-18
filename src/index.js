@@ -6,6 +6,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Aboutus from './pages/Aboutus'
 import Cart from "./pages/Cart";
+import CartsUser from './modulescart/cartuser';
 import LocationsForm from './adminpanel/location_add';
 import ProductForm from './adminpanel/addproducts';
 import Connect from './pages/Connect';
@@ -30,9 +31,10 @@ root.render(
     <Routes>
       <Route path="/AboutUs" element={<Aboutus />} />
       <Route path="/" element={<HomePage />} />
+      <Route path="/Cart" element={<CartsUser />} />
       <Route path="/Contactus" element={<Contactus />} />
       <Route path="/Connect" element={<Connect />} />
-      <Route path="/Cart" element={<Cart />} />
+      <Route path="/Login/user/dashboard" element={<Cart />} />
       <Route path="/Adding-Locations" element={<LocationsForm/>} />
       <Route path="/Updating-Products/:productId" element={<ManageProductForm/>} />
       <Route path="/Updating-Products" element={<DeleteProduct />} />

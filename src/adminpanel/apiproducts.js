@@ -34,6 +34,20 @@ export const AllProducts = async (Userid, Token) => {
     }
     ).catch(err => console.log("err", err))
 }
+
+export const ProductsGet = async (Token) => {
+    return fetch(`http://localhost:5000/Products`, {
+        method: 'GET',
+        headers: {
+            Accept: "application/json",
+            Authorization: `Bearer ${Token}`
+
+        },
+    }).then(response => {
+        return response.json()
+    }
+    ).catch(err => console.log("err", err))
+}
 export const UpdateProduct = async (product,Userid, Token, formData) => {
     console.log("",product,Userid, Token, formData)
     return fetch(`http://localhost:5000/update-product/${product}/item/${Userid}`, {

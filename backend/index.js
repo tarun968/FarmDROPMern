@@ -145,6 +145,7 @@ app.post('/feedback/:product/:adder', isSignedIn, isAuthenticated, Feedback, Rat
 app.post("/add-product/:adder", isSignedIn, isAuthenticated, isAdmin, SubmitForm)
 app.post("/update-product/:product/item/:adder", isSignedIn, isAuthenticated, isAdmin, UpdateForm)
 app.get("/All-Products/:adder", isSignedIn, isAuthenticated, isAdmin, FindAll)
+app.get("/Products/", isSignedIn,FindAll)
 app.get("/Photo/:product", getPhoto)
 
 app.post("/comment/:adder/:news", isSignedIn, isAuthenticated, getUserByEmail, NewsComment)

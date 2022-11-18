@@ -70,6 +70,11 @@ export default function Login() {
                     <Navigate to = "admin/dashboard"/>
                 )
             }
+            if (user && user.Role === 2) {
+                return (
+                    <Navigate to = "user/dashboard"/>
+                )
+            }
             else {
                 return (
                     <Navigate to = "/"/>

@@ -20,9 +20,9 @@ exports.SubmitForm = (req, res) => {
             })
         }
         let product = ProductModel(fields)
-        console.log('fields are',product)
-        console.log('fields are',fields)
-        console.log(file)
+        // console.log('fields are',product)
+        // console.log('fields are',fields)
+        // console.log(file)
         if (file.photo) {
             if (file.photo.size > 8300000) {
                 return res.status(400).json({
