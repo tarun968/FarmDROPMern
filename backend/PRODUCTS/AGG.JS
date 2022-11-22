@@ -2,7 +2,7 @@ const ProductModel = require('./productsDB')
 
 exports.FindAll = async (req,res) =>{
     const data = await ProductModel.find({})
-    // console.log('data',data[0].ImageProduct)
+    console.log("",data[0].ProductID)
     if(!data){
         return res.json({error:'Error in the database'})
     }

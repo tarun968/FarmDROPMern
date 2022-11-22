@@ -13,7 +13,7 @@ const News = new Schema({
         type: String,
         required: true
     },
-    Date: {
+    DateNews: {
         type: Date,
         required: true
     },
@@ -22,6 +22,11 @@ const News = new Schema({
         commentdesc: String,
         Dateofcomment: Date,
     }],
+    ImageNews: {
+        data: Buffer,
+        contentType: String,
+    }
+    ,
     Likes: {
         type: Number
     }

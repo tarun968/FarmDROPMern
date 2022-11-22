@@ -40,8 +40,6 @@ export const ProductsGet = async (Token) => {
         method: 'GET',
         headers: {
             Accept: "application/json",
-            Authorization: `Bearer ${Token}`
-
         },
     }).then(response => {
         return response.json()

@@ -2,12 +2,48 @@ const ProductModel = require('./productsDB')
 const formidable = require('formidable')
 const _ = require('lodash')
 const fs = require('fs')
-// const bodyParser = require('body-parser')
-// app.use(bodyParser.urlencoded({ extended: true }));
-// app.use(express.urlencoded({ extended: false }));
-// 
+exports.UpdateForm = (req, res) => {
+    console.log("update products")
+    console.log(req.body)
+    let form = new formidable.IncomingForm()
+    form.keepExtensions = true
+    form.parse(req, (err, fields, file) => {
+        if (err) {
+            console.log("error")
+            console.log(err)
+            return res.status(400).json({
+                error: 'Problem in the image'
+            })
+        }
+        let product = req.productfound
+        product = _.extend(product, fields)
+        console.log(file)
+        if (file.photo) {
+            if (file.photo.size > 8300000) {
+                return res.status(400).json({
+                    error: 'Problem in the image and its size'
+                })
+            }
+        }
+        product.ImageProduct.data = fs.readFileSync(file.ImageProduct.filepath)
+        product.ImageProduct.contentType = file.ImageProduct.type
+        product.save((errors, prod) => {
+            if (errors) {
+                console.log('error', errors)
+                return res.json({
+                    error: 'Problem in the Updating'
+                })
+            }
+            res.json(prod)
+        })
+    })
+}
+
+
+
 exports.SubmitForm = (req, res) => {
-    console.log("form ")
+    console.log("form in the index")
+    console.log(req.body)
     let form = new formidable.IncomingForm()
     form.keepExtensions = true
     console.log("form ")
@@ -20,25 +56,28 @@ exports.SubmitForm = (req, res) => {
             })
         }
         let product = ProductModel(fields)
-        // console.log('fields are',product)
-        // console.log('fields are',fields)
-        // console.log(file)
+        console.log('fields are', product)
+        console.log('fields are', fields)
+        console.log(file)
         if (file.photo) {
             if (file.photo.size > 8300000) {
                 return res.status(400).json({
-                    error: 'Problem in the image and its size'
+                    Message: 'Problem in the image and its size'
                 })
             }
         }
+        console.log('here', file.ImageProduct.type)
         product.AddedBy = req.profile.Email
         product.Date = new Date()
-        product.ImageProduct.data = fs.readFileSync(file.photo.filepath)
-        product.ImageProduct.contentType = file.photo.type
-        product.save((errors,prod) => {
-            if(errors){
-                console.log('error',errors)
+        console.log(product)
+        product.ImageProduct.data = fs.readFileSync(file.ImageProduct.filepath)
+        product.ImageProduct.contentType = file.ImageProduct.type
+        console.log(file.ImageProduct.type)
+        product.save((errors, prod) => {
+            if (errors) {
+                console.log('error', errors)
                 return res.json({
-                    error: 'Problem in the fields'    
+                    Message: 'Problem in the fields'
                 })
             }
             res.json(prod)

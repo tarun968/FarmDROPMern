@@ -32,11 +32,13 @@ const Menu2 = () => {
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
-            {(location.pathname == "/Cart" || location.pathname == '/Connect' 
-            || location.pathname == '/' || location.pathname == '/Contactus' 
-            || location.pathname == '/Login/admin/dashboard' || location.pathname=="/Adding-Products"
-            ||location.pathname == '/Updating-Products'
-            )
+                    {(location.pathname == "/Cart" || location.pathname == '/Connect'
+                        || location.pathname == '/' || location.pathname == '/Contactus'
+                        || location.pathname == '/Login/admin/dashboard' ||
+                        location.pathname == "/Adding-Products"
+                        || location.pathname == '/Updating-Products'
+                        || location.pathname == '/News' || location.pathname == '/News/:news'
+                    )
                         && (
                             <div className="collapse navbar-collapse" id="navbarSupportedContent">
 
@@ -51,7 +53,7 @@ const Menu2 = () => {
                                         <Link className="nav-link" style={{ color: "Black" }} onMouseOver={changeText} onMouseLeave={changetext2} aria-current="page" to="/Newsevents">News & Events</Link>
                                     </li>
                                     <li className="nav-item">
-                                        <Link className="nav-link" style={{display:isAuthenticated()? "none":"", color: "Black" }} onMouseOver={changeText} onMouseLeave={changetext2} to="/Login">Login</Link>
+                                        <Link className="nav-link" style={{ display: isAuthenticated() ? "none" : "", color: "Black" }} onMouseOver={changeText} onMouseLeave={changetext2} to="/Login">Login</Link>
                                     </li>
                                     {isAuthenticated() &&
                                         (<li className="nav-item">
@@ -76,7 +78,7 @@ const Menu2 = () => {
                                         <Link className="nav-link" onMouseOver={changeText} style={{ color: "Black" }} onMouseLeave={changetext2} aria-current="page" to="/Newsevents">News & Events</Link>
                                     </li>
                                     <li className="nav-item">
-                                        <Link className="nav-link" style={{ display:isAuthenticated()? "none":"",color: "Black" }} onMouseOver={changeText} onMouseLeave={changetext2} to="/Login">Login</Link>
+                                        <Link className="nav-link" style={{ display: isAuthenticated() ? "none" : "", color: "Black" }} onMouseOver={changeText} onMouseLeave={changetext2} to="/Login">Login</Link>
                                     </li>
                                     {isAuthenticated() &&
                                         (<li className="nav-item">
@@ -101,7 +103,7 @@ const Menu2 = () => {
                                         <Link className="nav-link" style={{ borderBottom: "3px Solid #90B501", color: "#90B501" }} aria-current="page" to="/Newsevents">News & Events</Link>
                                     </li>
                                     <li className="nav-item">
-                                        <Link className="nav-link" style={{ display:isAuthenticated()? "none":"",color: "Black" }} onMouseOver={changeText} onMouseLeave={changetext2} to="/Login">Login</Link>
+                                        <Link className="nav-link" style={{ display: isAuthenticated() ? "none" : "", color: "Black" }} onMouseOver={changeText} onMouseLeave={changetext2} to="/Login">Login</Link>
                                     </li>
                                     {isAuthenticated() &&
                                         (<li className="nav-item">
@@ -126,7 +128,7 @@ const Menu2 = () => {
                                         <Link className="nav-link" style={{ color: "Black" }} onMouseOver={changeText} onMouseLeave={changetext2} aria-current="page" to="/Newsevents">News & Events</Link>
                                     </li>
                                     <li className="nav-item">
-                                        <Link className="nav-link" style={{ display:isAuthenticated()? "none":"",color: "Black" }} onMouseOver={changeText} onMouseLeave={changetext2} to="/Login">Login</Link>
+                                        <Link className="nav-link" style={{ display: isAuthenticated() ? "none" : "", color: "Black" }} onMouseOver={changeText} onMouseLeave={changetext2} to="/Login">Login</Link>
                                     </li>
                                     {isAuthenticated() &&
                                         (<li className="nav-item">
@@ -149,7 +151,7 @@ const Menu2 = () => {
                                         <Link className="nav-link" style={{ color: "Black" }} onMouseOver={changeText} onMouseLeave={changetext2} aria-current="page" to="/Newsevents">News & Events</Link>
                                     </li>
                                     <li className="nav-item">
-                                        <Link className="nav-link" style={{display:isAuthenticated()? "none":"", borderBottom: "3px Solid #90B501", color: "#90B501" }} to="/Login">Login</Link>
+                                        <Link className="nav-link" style={{ display: isAuthenticated() ? "none" : "", borderBottom: "3px Solid #90B501", color: "#90B501" }} to="/Login">Login</Link>
                                     </li>
                                     {isAuthenticated() &&
                                         (<li className="nav-item">

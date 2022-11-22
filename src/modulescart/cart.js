@@ -2,33 +2,36 @@ import { Navigate } from "react-router-dom";
 import React from "react";
 import { Route } from "react-router-dom";
 import { useState } from "react";
-// import { Navigate } from "react-router-dom";
+import { removeItemfromCart } from "./carthelper";
 import { addItemtoCart } from "./carthelper";
 import ImageCardContainer from "./imgcontainer";
 export default function Cards({ Props,
-addtoCart=true,removeFromCart=false }) {
-    console.log("image",Props.ImageProduct)
+    addtoCart = true, removeFromCart = false,
+    SetReload = f => f, Reload = undefined, Count = undefined, showCount = false }) {
+    // console.log("image", Props.ImageProduct)
     const [Redirect, setRedirect] = useState(false)
+
     // const [removeFromCart, setremoveFromCart] = useState(true)
     const addCart = () => {
-        addItemtoCart(Props,()=>setRedirect(true))
+        addItemtoCart(Props, () => setRedirect(true))
     }
     const getRedirect = (Redirect) => {
-        console.log("redirec",Redirect)
+        // console.log("redirec", Redirect)
         if (Redirect) {
             return (
-                <Navigate to = "/Cart"/>
+                <Navigate to="/Cart" />
                 // <Route path="/" element={<Navigate to="/cart" />}></Route>
             )
         }
     }
+
     const showaddtocart = (addtoCart) => {
         return (addtoCart && (
             <button className="btn" style={{
                 background: "linear-gradient(#90B500, #7c9b00)",
                 color: 'white'
             }}
-            onClick={addCart}
+                onClick={addCart}
             >Add</button>
         )
         )
@@ -36,10 +39,16 @@ addtoCart=true,removeFromCart=false }) {
     const removefromcart = (removeFromCart) => {
         return (
             removeFromCart && (
-                <button className="btn mt-2" style={{
+                <button className="btn" style={{
                     background: "red",
                     color: 'white'
-                }}>Remove</button>
+                }}
+                    onClick={() => {
+                        removeItemfromCart(Props._id);
+                        SetReload(!Reload)
+                    }}>
+                    Remove
+                </button>
             )
         )
     }
@@ -51,18 +60,35 @@ addtoCart=true,removeFromCart=false }) {
             <div className="card-body"
                 style={{ border: '0 0 0 0' }}
             >
-        {getRedirect(Redirect)}
-        
+                {getRedirect(Redirect)}
+
                 <ImageCardContainer props={Props} />
-                <span className="card-title" style={{
+                <span className="card-title fw-bolder" style={{
                     fontSize: '90%'
                 }}>{Props.NameofProduct}
-                {/* {Props.ImageProduct._id} */}
                 </span>
                 <br></br>
-                <span className="card-title" style={{
+
+                <span className="card-title fw-bolder" style={{
                     fontSize: '87%'
-                }}>{Props.Quantity}</span>
+                }}>{Props.Quantity}
+                </span><br></br>
+
+                <span className="card-title text-dark fw-bolder" style={{
+                    fontSize: '87%'
+                }}>{Props.Count}
+                </span><br></br>
+
+                <span className="card-title fw-bolder" style={{
+                    fontSize: '87%'
+                }}>{Props.Price}
+                </span><br></br>
+
+                <span className="card-title fw-bolder" style={{
+                    fontSize: '87%',display:showCount ?"":"none"
+                }}>Total Cost  Rs.{Props.Price * Props.Count}
+                </span><br></br>
+
                 <p
                     style={{ fontSize: '95%' }}
                     className="fw-bold card-text">

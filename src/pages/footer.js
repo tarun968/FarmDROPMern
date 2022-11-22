@@ -4,8 +4,8 @@ import './footer.css'
 export default function Footer() {
     return (
         <>
-            <div>
-                <footer style={{ backgroundColor: '#303030' }} class="text-center text-white">
+            <div className="mt-5">
+                <footer style={{ marginTop:'2 vh',backgroundColor: '#303030' }} class="text-center text-white">
                     <div class="row d-flex justify-content-center">
                         <div class="col-auto">
                             <section class="mt-5 mb-4 text-light">

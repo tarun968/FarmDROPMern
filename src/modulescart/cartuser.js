@@ -6,26 +6,27 @@ import Cards from "./cart";
 import { CartLoader } from "./carthelper";
 import { addItemtoCart } from "./carthelper";
 import ImageCardContainer from "./imgcontainer";
+import PaymentUser from "./payement";
 import { useEffect } from "react";
 import Menu2 from "../menu/menu2";
 export default function CartsUser({ Props,
     addtoCart = true, removeFromCart = false }) {
     // console.log("image", Props.ImageProduct)
     const [CartPros, setCartPros] = useState([])
-    const [Redirect, setRedirect] = useState(false)
+    // const [Redirect, setRedirect] = useState(false)
+    const [Reload, SetReload] = useState(false)
     useEffect(() => {
         setCartPros(CartLoader())
-    })
+    }, [Reload])
     // const [removeFromCart, setremoveFromCart] = useState(true)
-
 
     return (
         <>
-        <Menu2/>
-        <div className="card my-2 mx-2"
-        >
+            <Menu2 />
+            {/* <div className="card my-2 mx-2"
+            > */}
             <div className="card-body"
-                style={{ border: '0 0 0 0' }}
+                style={{ border: '0 0 0 0', display: 'flex' }}
             >
                 {(
                     CartPros.map((content, index) => {
@@ -34,16 +35,26 @@ export default function CartsUser({ Props,
                             <div className="col"
                                 style={{ width: '35%' }}
                             >
-                                <Cards Props={content} 
+                                <Cards Props={content}
                                     removeFromCart={true}
                                     addtoCart={false}
+                                    Reload={Reload}
+                                    SetReload={SetReload}
+                                    Count={content.Count}
+                                    showCount = {true}
                                 />
                             </div>
                         )
                     })
                 )}
             </div>
-        </div>
+            <PaymentUser
+                Props={CartPros}
+                SetReload={SetReload}
+                Reload={Reload}
+            />
+
+            {/* </div> */}
         </>
     )
 }

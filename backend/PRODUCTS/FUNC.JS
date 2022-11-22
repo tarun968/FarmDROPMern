@@ -34,11 +34,8 @@ exports.getProductbyId = (req, res, next, id) => {
     })
 }
 exports.getPhoto = async(req,res) =>{
+    console.log("product image")
     if(req.productfound.ImageProduct.data){
-        // console.log(req.productfound.ImageProduct)
-        // console.log(req.productfound)
-        // console.log("req found",req.productfound)
-        // console.log("",req.productfound.ImageProduct.contentType)
         res.set('Content-Type',req.productfound.ImageProduct.contentType)
         return res.send(req.productfound.ImageProduct.data)
     }   
