@@ -20,7 +20,7 @@ const DeleteProduct = () => {
             }
         })
     }
-
+console.log("",Products)
     useEffect(() => {
         preload()
     }, [])
@@ -45,7 +45,7 @@ const DeleteProduct = () => {
                     <div class="col-md-12">
                         <section class="d-flex justify-content-space-between">
                             <div className="row">
-                                <div clas>
+                                <div>
                                 </div>
                             </div>
                         </section>

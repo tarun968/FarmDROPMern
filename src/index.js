@@ -5,6 +5,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a lo
 import 'bootstrap/dist/css/bootstrap.css';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Aboutus from './pages/Aboutus'
+import UserProfile from './moduleslogin/UserProfile';
 import NewItem from './modulesnande/new';
 import Cart from "./pages/Cart";
 import CartsUser from './modulescart/cartuser';
@@ -25,9 +26,6 @@ import HomePage from './pages/Home';
 import PrivateRoute from './moduleslogin/privateroute';
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
-const usersindex = isAuthenticated();
-// console.log("",usersindex)
-// console.log("",typeof(usersindex))
 root.render(
   <BrowserRouter>
     <Routes>
@@ -37,6 +35,7 @@ root.render(
       <Route path="/Contactus" element={<Contactus />} />
       <Route path="/Connect" element={<Connect />} />
       <Route path="/Login/user/dashboard" element={<Cart />} />
+      <Route path="/profile/:email" element={<UserProfile />} />
       <Route path="/Adding-News" element = {<AddNews />} />
       <Route path="/Adding-Locations" element={<LocationsForm/>} />
       <Route path="/News/:news" element={<NewItem/>} />
@@ -46,8 +45,8 @@ root.render(
       <Route path ="/Login/admin/dashboard" element = {<AdminPanel />} />
       <Route element = {<PrivateRoute />}>
       <Route element = {<Login/>} path='/Login' />
-      {/* <Route element = {<Login/>} path='/' /> */}
       </Route>
+      
       <Route path="/Ourlocation" element={<Ourlocation />} />
       <Route path="/Newsevents" element={<NewEvents />} />
     </Routes>

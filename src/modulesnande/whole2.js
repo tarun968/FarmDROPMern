@@ -27,7 +27,7 @@ export default function Whole2() {
                 <div className="row">
                     {
                         AllNews.map((index, element) => {
-                            console.log(index)
+                            console.log(index.Comments.length)
                             const base64String = btoa(
                                 String.fromCharCode(...new Uint8Array(index.ImageNews.data.data))
                             )
@@ -37,7 +37,7 @@ export default function Whole2() {
                                     Description={index.News}
                                     Date={index.DateNews}
                                     Id={index._id}
-                                    Comment={index.Comments.length}
+                                    comments={index.Comments.length}
                                     base64String={base64String}
                                 />
                             )

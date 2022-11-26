@@ -38,7 +38,7 @@ app.use(bodyParser.json());
 const Auths = require('./USER/fileroutes')
 
 const { isAuthenticated, isAdmin, isSignedIn } = require('./CONTROLLERS/AUTH')
-const { getUserByEmail, getAllUsers, updateUser } = require('./USER/FUNC')
+const { getUserByEmail, getAllUsers, updateUser, getUserEmail } = require('./USER/FUNC')
 const { Feedback, RatingCalc, getPhoto, productDelete} = require('./PRODUCTS/FUNC')
 const { AddingNews, NewsComment, getNewsbyId, 
     SubmitFormNews,getAllnews,getPhotoNews,getNewstoFront } = require('./NEWS/FUNC')
@@ -93,6 +93,7 @@ app.delete("/product/:product/:adder", isSignedIn, isAuthenticated, isAdmin, pro
 // /Image/${selecteduser._id}/photo/${element._id}
 app.get("/Image/:shopowner/photo/:image", getPhotoofImage)
 app.get("/productsbyAdder", FindbyAdder)
+app.get("/user/profile",getUserEmail)
 app.get("/productsbyRating", FindbyRating)
 app.get("/shopsbycountry", getAllshopBycountry)
 app.get("/all-images/:adder", isSignedIn, isAuthenticated, getAllImages)

@@ -37,10 +37,11 @@ exports.NewsComment = async (req, res) => {
 
         let form = new formidable.IncomingForm()
     form.keepExtensions = true
+    console.log("pro",req.profile.Email)
     form.parse(req, (err, fields, file) => {
         console.log("____",fields)
         var comnts = {
-            commentedby: req.params.adder,
+            commentedby: req.profile.Email,
             commentdesc: fields.commentdesc,
             Dateofcomment: new Date()
         }
