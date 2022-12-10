@@ -38,7 +38,7 @@ app.use(bodyParser.json());
 const Auths = require('./USER/fileroutes')
 
 const { isAuthenticated, isAdmin, isSignedIn } = require('./CONTROLLERS/AUTH')
-const { getUserByEmail, getAllUsers, updateUser, getUserEmail } = require('./USER/FUNC')
+const { getUserByEmail, getAllUsers, updateUser, getUserEmail, getUserDetails } = require('./USER/FUNC')
 const { Feedback, RatingCalc, getPhoto, productDelete} = require('./PRODUCTS/FUNC')
 const { AddingNews, NewsComment, getNewsbyId, 
     SubmitFormNews,getAllnews,getPhotoNews,getNewstoFront } = require('./NEWS/FUNC')
@@ -86,6 +86,7 @@ isSignedIn,
  NewsComment)
 app.post("/add-news/:adder", isSignedIn, isAuthenticated, isAdmin,SubmitFormNews)
 app.get("/all-news",getAllnews)
+app.get("/user/:adder",isSignedIn,isAuthenticated,getUserDetails)
 app.get("/PhotoNews/:news",getPhotoNews)
 app.get("/productsbyName", FindbyName)
 app.get("/productsbyID", FindbyID)

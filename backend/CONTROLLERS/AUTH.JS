@@ -18,6 +18,7 @@ exports.isSignedIn = jwtk(
         userProperty: "auth1",
         algorithms: ['sha1', 'HS256', 'RS256']
 })
+
 exports.isAuthenticated = (req, res, next) => {
     console.log("req auth", req.auth)
     console.log('req profile', req.profile)
@@ -37,3 +38,5 @@ exports.isAuthenticated = (req, res, next) => {
         console.log("error", er)
     }
 }
+
+

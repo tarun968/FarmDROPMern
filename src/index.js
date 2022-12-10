@@ -5,7 +5,9 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a lo
 import 'bootstrap/dist/css/bootstrap.css';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Aboutus from './pages/Aboutus'
-import UserProfile from './moduleslogin/UserProfile';
+
+import Orders from './Profile/Orders';
+import UserProfile from './Profile/userProfile';
 import NewItem from './modulesnande/new';
 import Cart from "./pages/Cart";
 import CartsUser from './modulescart/cartuser';
@@ -43,10 +45,12 @@ root.render(
       <Route path="/Updating-Products" element={<DeleteProduct />} />
       <Route path="/Adding-Products" element={<ProductForm/>} />
       <Route path ="/Login/admin/dashboard" element = {<AdminPanel />} />
+      
       <Route element = {<PrivateRoute />}>
       <Route element = {<Login/>} path='/Login' />
       </Route>
-      
+      <Route path="/user/:User" element = {<UserProfile/>} />
+      <Route path="/user/:User/orders" element = {<Orders/>} />
       <Route path="/Ourlocation" element={<Ourlocation />} />
       <Route path="/Newsevents" element={<NewEvents />} />
     </Routes>

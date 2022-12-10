@@ -9,6 +9,7 @@ export default function Cards({ Props,
     addtoCart = true, removeFromCart = false,
     SetReload = f => f, Reload = undefined, Count = undefined, showCount = false }) {
     // console.log("image", Props.ImageProduct)
+    console.log(Props)
     const [Redirect, setRedirect] = useState(false)
 
     // const [removeFromCart, setremoveFromCart] = useState(true)
@@ -55,53 +56,76 @@ export default function Cards({ Props,
 
 
     return (
-        <div className="card my-2 mx-2"
+        <div className="card my-2 mx-auto"
         >
             <div className="card-body"
                 style={{ border: '0 0 0 0' }}
             >
                 {getRedirect(Redirect)}
 
-                <ImageCardContainer props={Props} />
-                <span className="card-title fw-bolder" style={{
-                    fontSize: '90%'
-                }}>{Props.NameofProduct}
-                </span>
-                <br></br>
 
-                <span className="card-title fw-bolder" style={{
-                    fontSize: '87%'
-                }}>{Props.Quantity}
-                </span><br></br>
+                {(Props === undefined) &&
+                    (
+                        <div class="card w-100 text-center mx-auto">
+                            <div class="card-header">
+                                Empty Cart !
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">Your Cart Don't Have Any Products Till Now</h5>
+                                <p class="card-text">Click Below to Add Products to Your Cart.</p>
+                            </div>
+                        </div>
+                    )
+                }
 
-                <span className="card-title text-dark fw-bolder" style={{
-                    fontSize: '87%'
-                }}>{Props.Count}
-                </span><br></br>
 
-                <span className="card-title fw-bolder" style={{
-                    fontSize: '87%'
-                }}>{Props.Price}
-                </span><br></br>
+                {(Props !== undefined) && (
+                    <>
+                        <ImageCardContainer props={Props} />
+                        <span className="card-title fw-bolder" style={{
+                            fontSize: '90%'
+                        }}>{Props.NameofProduct}
+                        </span>
+                        <br></br>
 
-                <span className="card-title fw-bolder" style={{
-                    fontSize: '87%',display:showCount ?"":"none"
-                }}>Total Cost  Rs.{Props.Price * Props.Count}
-                </span><br></br>
+                        <span className="card-title fw-bolder" style={{
+                            fontSize: '87%'
+                        }}>{Props.Quantity}
+                        </span><br></br>
 
-                <p
-                    style={{ fontSize: '95%' }}
-                    className="fw-bold card-text">
-                    {/* {Props.Desc.substring(0, 30)}${Props.Cost} */}
-                </p>
-                <div>
-                    {showaddtocart(addtoCart)}
-                </div>
-                <div>
-                    {
-                        removefromcart(removeFromCart)
-                    }
-                </div>
+                        <span className="card-title text-dark fw-bolder" style={{
+                            fontSize: '87%'
+                        }}>{Props.Count}
+                        </span><br></br>
+
+                        <span className="card-title fw-bolder" style={{
+                            fontSize: '87%'
+                        }}>{Props.Price}
+                        </span><br></br>
+
+                        <span className="card-title fw-bolder" style={{
+                            fontSize: '87%', display: showCount ? "" : "none"
+                        }}>Total Cost  Rs.{Props.Price * Props.Count}
+                        </span><br></br>
+
+                        <p
+                            style={{ fontSize: '95%' }}
+                            className="fw-bold card-text">
+                            {/* {Props.Desc.substring(0, 30)}${Props.Cost} */}
+                        </p>
+                        <div>
+                            {showaddtocart(addtoCart)}
+                        </div>
+                        <div>
+                            {
+                                removefromcart(removeFromCart)
+                            }
+                        </div>
+                    </>
+                )
+
+                }
+
             </div>
         </div>
     )

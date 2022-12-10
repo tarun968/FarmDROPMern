@@ -148,9 +148,6 @@ export default function SignIn(){
                             <br>
                             </br>
                             <br></br>
-
-                            {/* {successSignup} */}
-                            {/* {errorSignup(error)} */}
                             <button
                                 onClick={SignUp}
                                 type="submit"

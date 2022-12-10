@@ -1,7 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import './footer.css'
+import { isAuthenticated } from "../backendjoin/auth";
 export default function Footer() {
+
+    const {user,Token} = isAuthenticated()
     return (
         <>
             <div className="mt-5">
@@ -39,7 +42,7 @@ export default function Footer() {
                                     class="btn btn-link btn-floating btn-lg text-dark m-1"
                                     data-mdb-ripple-color="dark"
                                 >
-                                    <Link style={{ color: "White", textDecoration: 'none' }} to='/Login'>Login</Link>
+                                    <Link style={{ color: "White", textDecoration: 'none' }} to='/Cart'>Cart</Link>
                                 </a>
                                 <a
                                     style={{ textDecoration: 'none' }}
@@ -47,7 +50,7 @@ export default function Footer() {
                                     class="btn btn-link btn-floating btn-lg text-dark m-1"
                                     data-mdb-ripple-color="dark"
                                 >
-                                    <Link style={{ color: "White", textDecoration: 'none' }} to='/Ourlocation'>Support</Link>
+                                    <Link style={{ color: "White", textDecoration: 'none' }} to= {user ? `/user/${user._id}` : ``} >Profile</Link>
                                 </a>
                                 <a
                                     style={{ textDecoration: 'none' }}

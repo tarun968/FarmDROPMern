@@ -4,6 +4,14 @@ const jwt = require('jsonwebtoken')
 const { OAuth2Client, UserRefreshClient } = require('google-auth-library')
 const client = new OAuth2Client('991435748204-2nqakgjfp3ok2cn6spi86svqgpr9fr9h.apps.googleusercontent.com')
 
+exports.getUserDetails = async (req,res) =>{
+    const UserDetails = await userModel.findOne({Email:req.auth.email})
+    if(!UserDetails){
+        return res.json({error:'Server error'})
+    }
+    return res.json(UserDetails)
+}
+
 exports.getUserByEmail = (req, res, next, id) => {
     console.log("lets get the user by email")
     console.log('ID', id)

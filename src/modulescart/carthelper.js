@@ -55,8 +55,12 @@ export const addItemtoCart = (item, next) => {
 
 export const CartLoader = () => {
     if (typeof window !== undefined) {
+
         if (localStorage.getItem("cart")) {
             return JSON.parse(localStorage.getItem("cart"))
+        }
+        else{
+            return JSON.parse(JSON.stringify([]))
         }
     }
 }
