@@ -49,7 +49,7 @@ export default function Cards2(
             </p>
             <div style={{ borderTop: '0.5px solid grey', paddingTop: '1px' }} className="d-flex justify-content-between align-items-center">
               <small className="text-muted" >{Date.substring(0, 10)}</small>
-              <small className="text-muted" >{comments} Comments</small>
+              {/* <small className="text-muted" >{comments} Comments</small> */}
             </div>
           </div>
         </div>

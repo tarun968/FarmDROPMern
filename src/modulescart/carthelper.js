@@ -6,16 +6,16 @@ export const removeItemfromCart = (productId) => {
         if (localStorage.getItem("cart")) {
             cart = JSON.parse(localStorage.getItem("cart"))
         }
-        console.log("product id",productId)
+        console.log("product id", productId)
         cart.map((product, i) => {
             console.log("here is the prduct to remove", product)
             if (product._id === productId) {
                 if (product.Count > 1) {
-                    console.log("in the if ",product._id)
+                    console.log("in the if ", product._id)
                     product.Count -= 1
                 }
                 else if (product.Count === 1) {
-                    console.log("in the else",product._id)
+                    console.log("in the else", product._id)
                     cart.splice(i, 1)
                 }
             }
@@ -36,12 +36,18 @@ export const addItemtoCart = (item, next) => {
     function upsert(array, element) {
         console.log(element.NameofProduct)
         const i = array.findIndex(_element => _element.NameofProduct === element.NameofProduct);
-        console.log("i",i)
         if (i > -1) {
-            console.log("count if",element)
-            array[i].Count += 1; // (2)
+            console.log("i", i)
+            array[i].Count += 1
+            if (array[i].Count > array[i].Quantity) {
+                console.log("jyada hogya")
+                array[i].Count -= 1
+            }
+
         }
         else {
+            console.log("i", i)
+            console.log("array i", array[i])
             console.log("count", element)
             element["Count"] = 1
             array.push(element);
@@ -49,6 +55,7 @@ export const addItemtoCart = (item, next) => {
         }
     }
     upsert(cart, item)
+    console.log("cart",cart)
     localStorage.setItem("cart", JSON.stringify(cart))
     next();
 }
@@ -59,7 +66,7 @@ export const CartLoader = () => {
         if (localStorage.getItem("cart")) {
             return JSON.parse(localStorage.getItem("cart"))
         }
-        else{
+        else {
             return JSON.parse(JSON.stringify([]))
         }
     }

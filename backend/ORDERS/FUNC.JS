@@ -4,12 +4,14 @@ const Razorpay = require('razorpay')
 const crypto = require('crypto')
 var userModel = require('../USER/filemws')
 const ProductModel = require('../PRODUCTS/productsDB')
-exports.getOrderById = (req, res, id, next) => {
+exports.getOrderById = (req, res, next, id) => {
+    console.log("order id ",id)
     Order.findById(id)
-        .populate("ProductSchema.product", "name price")
         .exec((err, order) => {
+            console.log('order',order)
             if (err) {
-                return res.status.json({ message: 'Nothing was found' })
+            console.log("err",err)
+                return res.status(400).json({ message: 'Nothing was found' })
             }
             req.order = order;
             next();
@@ -27,9 +29,8 @@ exports.userPurchaseList = (req, res) => {
 }
 
 exports.createOrder = (req, res) => {
-    console.log("in the order", req.profile)
-    console.log("in order", req.body.amount)
-    console.log("in the order", req.body.order)
+
+    console.log("entering the createorder",req.profile)
     req.body.order.user = req.profile
     const order = new Order()
     req.body.order.forEach(element => {
@@ -61,6 +62,7 @@ exports.pushOrderInPurchaseList = (req, res, next) => {
     let purchases = [];
     console.log("entrered here")
     console.log(req.body)
+    console.log("entering the push order in purchase list",req.body)
     req.body.order.forEach(element => {
         console.log("element", element)
         purchases.push({
@@ -90,7 +92,9 @@ exports.pushOrderInPurchaseList = (req, res, next) => {
         }
     )
 }
+
 exports.updateStock = (req, res, next) => {
+    console.log("entering the push order in updating stock",req.body)
     let myOps = req.body.order.map(prod => {
         console.log("prod", prod)
         return {
@@ -109,6 +113,9 @@ exports.updateStock = (req, res, next) => {
         }
     })
 }
+
+
+
 exports.updateOrder = (req, res) => {
     Order.findByIdAndUpdate({
         _id: req.body.OrderID

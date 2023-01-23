@@ -9,7 +9,7 @@ export default function Cards({ Props,
     addtoCart = true, removeFromCart = false,
     SetReload = f => f, Reload = undefined, Count = undefined, showCount = false }) {
     // console.log("image", Props.ImageProduct)
-    console.log(Props)
+    console.log('Props of cards',Props)
     const [Redirect, setRedirect] = useState(false)
 
     // const [removeFromCart, setremoveFromCart] = useState(true)
@@ -26,9 +26,12 @@ export default function Cards({ Props,
         }
     }
 
-    const showaddtocart = (addtoCart) => {
+    const showaddtocart = (addtoCart,Count) => {
+        console.log("add to cart,",addtoCart,Count)
         return (addtoCart && (
-            <button className="btn" style={{
+            <button className="btn" 
+            disabled = {Count === 0}
+            style={{
                 background: "linear-gradient(#90B500, #7c9b00)",
                 color: 'white'
             }}
@@ -90,12 +93,12 @@ export default function Cards({ Props,
 
                         <span className="card-title fw-bolder" style={{
                             fontSize: '87%'
-                        }}>{Props.Quantity}
+                        }}>Available Quantity {Props.Quantity}
                         </span><br></br>
 
                         <span className="card-title text-dark fw-bolder" style={{
                             fontSize: '87%'
-                        }}>{Props.Count}
+                        }}>Your Count{Props.Count}
                         </span><br></br>
 
                         <span className="card-title fw-bolder" style={{
@@ -114,7 +117,7 @@ export default function Cards({ Props,
                             {/* {Props.Desc.substring(0, 30)}${Props.Cost} */}
                         </p>
                         <div>
-                            {showaddtocart(addtoCart)}
+                            {showaddtocart(addtoCart,Props.Quantity)}
                         </div>
                         <div>
                             {

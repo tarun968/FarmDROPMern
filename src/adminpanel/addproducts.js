@@ -3,6 +3,7 @@ import Menu2 from "../menu/menu2"
 import { useState, useEffect } from "react";
 import { isAuthenticated } from "../backendjoin/auth";
 import { AddProducts } from "./apiproducts";
+import Footer from "../pages/footer";
 export default function ProductForm() {
     const { user, Token } = isAuthenticated()
     console.log(user)
@@ -177,6 +178,7 @@ export default function ProductForm() {
                     {ErrorMessage()}
                 </div>
             </div>
+            <Footer/>
         </>
     )
 }

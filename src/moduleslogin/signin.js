@@ -49,15 +49,12 @@ export default function SignIn(){
         signup({ Email, Password, Role, Phone, Reference, FDMarket })
             .then(data => {
                 console.log("data", data)
-                if (data.error) {
+                if (data.errors) {
                     setValues({
-                        Email: "",
-                        Password: "",
+                        ...Values,
                         Role: 2,
-                        Phone: "",
-                        Reference: "",
-                        "FDMarket": ""
-                        , error: data.error, success: false
+                        error: data.errors[0].msg,
+                        success: false
                     })
                 }
                 else {

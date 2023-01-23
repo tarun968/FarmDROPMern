@@ -5,10 +5,11 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a lo
 import 'bootstrap/dist/css/bootstrap.css';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Aboutus from './pages/Aboutus'
-
+import EditOrder from './Profile/EditOrder';
 import Orders from './Profile/Orders';
 import UserProfile from './Profile/userProfile';
 import NewItem from './modulesnande/new';
+import EditProfile from './Profile/EditProfile';
 import Cart from "./pages/Cart";
 import CartsUser from './modulescart/cartuser';
 import LocationsForm from './adminpanel/location_add';
@@ -26,7 +27,7 @@ import AdminPanel from './adminpanel/admin';
 import Ourlocation from "./pages/Ourlocation"
 import HomePage from './pages/Home';
 import PrivateRoute from './moduleslogin/privateroute';
-
+import EditOrderAdmin from './adminpanel/EditOrderAdmin';
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   <BrowserRouter>
@@ -51,6 +52,10 @@ root.render(
       </Route>
       <Route path="/user/:User" element = {<UserProfile/>} />
       <Route path="/user/:User/orders" element = {<Orders/>} />
+      <Route path="/user/:User/edit-profile" element = {<EditProfile/>} />
+      <Route path="/user/:User/orders/order/:orderid" element = {<EditOrder/>} />
+      <Route path="/Login/admin/dashboard/order/:orderid" element = {<EditOrderAdmin/>} />
+
       <Route path="/Ourlocation" element={<Ourlocation />} />
       <Route path="/Newsevents" element={<NewEvents />} />
     </Routes>

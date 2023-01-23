@@ -63,6 +63,7 @@ exports.getAllUsers = (req, res) => {
         if (err || !users) {
             return res.status(400).json({ Message: 'No users found' })
         }
+        userNames = users.map(value => value.Email);
         res.status(200).json(users)
     })
 }

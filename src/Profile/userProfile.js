@@ -43,9 +43,6 @@ export default function UserProfile({ props }) {
                 <div class="card-header">
                     Your Profile
                 </div>
-                <OrdersArrayContext.Provider value={UserDetails}>
-                    <Orders />
-                </OrdersArrayContext.Provider>
                 <div class="card-body">
                     <h5 class="card-title">Welcome</h5>
                     <p class="card-text">
@@ -62,8 +59,11 @@ export default function UserProfile({ props }) {
                     </p>
                 </div>
                 <div class="card-footer text-muted">
-                    <Link class="btn btn-primary mx-4" to='orders'
-                        state={{ state: UserDetails.Purchases }}>
+                    <Link class="btn btn-primary mx-4"
+                        to={{
+                            pathname: 'orders',
+                            state: [{ id: 1, name: 'Ford', color: 'red' }]
+                        }}  >
                         Your Orders
                     </Link>
                     <Link class="btn btn-primary mx-4" to='edit-profile'>Edit Profile</Link>

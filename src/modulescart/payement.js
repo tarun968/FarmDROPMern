@@ -2,11 +2,12 @@ import React from "react";
 import { useState } from "react";
 import { isAuthenticated } from "../backendjoin/auth";
 import { cartEmpty, CartLoader } from "./carthelper";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import axios from "axios";
 import { Navigate } from "react-router-dom";
 import { createOrder } from "./cartAPI";
+import { ProductsGet } from "../adminpanel/apiproducts";
 
 export default function PaymentUser({
     Props,
@@ -20,11 +21,49 @@ export default function PaymentUser({
         error: "",
         address: ""
     })
+    const [Products, setProducts] = useState([])
+    const preload = () => {
+        ProductsGet(Token).then(data => {
+            if (data.error) {
+                console.log(data.error)
+            }
+            else {
+                setProducts(data.message)
+            }
+        })
+    }
 
+    useEffect(() => {
+        preload()
+    }, [])
 
+    // Products.map((index,element) => {
+    //     console.log("index",index)
+    //     Props.map((cartindex,cartelement) => {
+    //         if(cartindex.Count > index.Quantity && cartindex.NameofProduct === index.NameofProduct){
+    //             console.log("",cartindex.NameofProduct)
+    //         }
+    //     })
+    // })
 
+    // console.log("props in payment",Props[0],Props[1],Props.length)
+    // var listToDelete = ['abc', 'efg'];
+
+    // var arrayOfObjects = [{id:'abc',name:'oh'}, // delete me
+    //                       {id:'efg',name:'em'}, // delete me
+    //                       {id:'hij',name:'ge'}] // all that should remain]
+
+    // for (var i = 0; i < Props.length; i++) {
+    //     var obj = Props[i];
+    //     if (Products.Quantity <= obj.Count) {
+    //         Props.splice(i, 1);
+    //         i--
+    //     }
+    // }
+    console.log(",",Props)
+    const navigate = useNavigate()
     const initPayment = (data, user, Token) => {
-        console.log(data, Token)
+        console.log(data, Token, user)
         const options = {
             key: "rzp_test_mAeSZ0xKdkylm1",
             amount: data.amount,
@@ -52,13 +91,15 @@ export default function PaymentUser({
                     console.log(data);
                     // alert(response.razorpay_payment_id)
                     alert("payment sucessfully")
+                    cartEmpty()
+                    navigate(`/user/${isAuthenticated().user._id}/orders`)
                 } catch (error) {
                     console.log(error);
                 }
                 // delete Props['ImageProduct']
                 createOrder(user, Token, Props).then(
                     dataX => {
-                        console.log("data",dataX)
+                        console.log("data", dataX)
                         if (dataX.error) {
                             console.log(dataX.error)
                         }
@@ -119,7 +160,7 @@ export default function PaymentUser({
     }
     const getFinalPrice = () => {
         let Amount = 0;
-        console.log("props", Props)
+        console.log("props in payement to pay", Props)
         Props.map((element, index) => {
             console.log("element", element)
             Amount = Amount + (element.Price) * (element.Count)
